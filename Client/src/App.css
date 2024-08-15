@@ -1,0 +1,80 @@
+.All-background-img {
+  
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(https://www.kayak.co.in/news/wp-content/uploads/sites/76/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+/* CSS for rating */ 
+.rating > label {
+  margin-right: 50px;
+}
+
+.rating:not(:checked) > input {
+  display: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.rating:not(:checked) > label > svg {
+  fill: #666;
+  transition: fill 0.3s ease;
+}
+
+.rating > input:checked ~ label > svg {
+  fill: #ffa723;
+}
+
+.rating:not(:checked) > label:hover ~ label > svg,
+.rating:not(:checked) > label:hover > svg {
+  fill: #ff9e0b;
+}
+
+#star1:hover ~ label > svg,
+#star1:hover > svg {
+  fill: #a23c3c !important;
+}
+
+#star2:hover ~ label > svg,
+#star2:hover > svg {
+  fill: #99542d !important;
+}
+
+#star3:hover ~ label > svg,
+#star3:hover > svg {
+  fill: #9f7e18 !important;
+}
+
+#star4:hover ~ label > svg,
+#star4:hover > svg {
+  fill: #22885e !important;
+}
+
+#star5:hover ~ label > svg,
+#star5:hover > svg {
+  fill: #7951ac !important;
+}
+
+#star1:checked ~ label > svg {
+  fill: #ef4444;
+}
+
+#star2:checked ~ label > svg {
+  fill: #e06c2b;
+}
+
+#star3:checked ~ label > svg {
+  fill: #eab308;
+}
+
+#star4:checked ~ label > svg {
+  fill: #19c37d;
+}
+
+#star5:checked ~ label > svg {
+  fill: #ab68ff;
+}
