@@ -14,7 +14,16 @@ const RatingModel = require("./models/RatingSchema");
 
 const app = express();
 app.use(express.json()); // to canvat user input data in to json formate for store in database
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://solid-space-adventure-5gq5457g7jv7c7xxj-5173.app.github.dev', // Your frontend origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -75,7 +84,7 @@ app.post("/booking", (req, res) => {
     checkout,
     typeroom,
     price,
-    })
+  })
     .then((booked) => res.json(booked))
     .catch((err) => res.json(err));
 });
@@ -105,7 +114,7 @@ app.get("/mybookings/:name", async (req, res) => {
 app.get("/upbookings/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const bookings = await BookingModel.findById( id );
+    const bookings = await BookingModel.findById(id);
     res.json(bookings);
   } catch (err) {
     res.json(err);
@@ -138,7 +147,7 @@ app.post("/updatebooking/:id", (req, res) => {
     price,
   };
 
-  BookingModel.findByIdAndUpdate( bookingId, updateData )
+  BookingModel.findByIdAndUpdate(bookingId, updateData)
     .then((updated) => res.json(updated))
     .catch((err) => res.json(err));
 });
@@ -181,7 +190,7 @@ app.post("/addfacility", (req, res) => {
     title,
     imageUrl,
     description,
-    })
+  })
     .then((added) => res.json(added))
     .catch((err) => res.json(err));
 });
@@ -209,7 +218,7 @@ app.post("/addarticle", (req, res) => {
     title,
     date,
     summary,
-    })
+  })
     .then((added) => res.json(added))
     .catch((err) => res.json(err));
 });
@@ -235,7 +244,7 @@ app.post("/addreview", (req, res) => {
   ReviewModel.create({
     name,
     review,
-    })
+  })
     .then((added) => res.json(added))
     .catch((err) => res.json(err));
 });
@@ -276,7 +285,7 @@ app.post("/addfaq", (req, res) => {
   FAQModel.create({
     question,
     answer,
-    })
+  })
     .then((added) => res.json(added))
     .catch((err) => res.json(err));
 });
@@ -302,7 +311,7 @@ app.post("/addrating", (req, res) => {
   RatingModel.create({
     name,
     star,
-    })
+  })
     .then((added) => res.json(added))
     .catch((err) => res.json(err));
 });
@@ -330,6 +339,10 @@ app.get("/user", verifyToken, (req, res) => {
       res.json({ user });
     })
     .catch((err) => res.json(err));
+});
+
+app.get("/", (req, res) => {
+  res.json(" Hello ");
 });
 
 app.listen(3001, () => {
