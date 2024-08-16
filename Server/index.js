@@ -13,17 +13,25 @@ const FAQModel = require("./models/FAQSchema");
 const RatingModel = require("./models/RatingSchema");
 
 const app = express();
-app.use(express.json()); // to canvat user input data in to json formate for store in database
 
 const corsOptions = {
-  origin: 'https://solid-space-adventure-5gq5457g7jv7c7xxj-5173.app.github.dev', // Your frontend origin
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: ['https://solid-space-adventure-5gq5457g7jv7c7xxj-5173.app.github.dev'], // Your frontend origin
+  methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth-Token', 'Origin'],
   optionsSuccessStatus: 200
 };
-
 app.use(cors(corsOptions));
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'https://solid-space-adventure-5gq5457g7jv7c7xxj-5173.app.github.dev');
+//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Auth-Token, Origin');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
+
+app.use(express.json()); // to canvat user input data in to json formate for store in database
 
 mongoose.connect(process.env.MONGODB_URI);
 
