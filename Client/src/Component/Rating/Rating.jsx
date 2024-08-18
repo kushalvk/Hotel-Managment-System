@@ -95,7 +95,7 @@ function Rating() {
                             />
                           </div>
                         </div>
-                        <div className="p-2 w-full lg:mr-14">
+                        <div className="p-2 w-full">
                           <div className="relative">
 
                             {/* Rationg stars */}

@@ -37,6 +37,21 @@ router.post("/login", (req, res) => {
     });
 });
 
+// update user
+router.post("/updateuser/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const { username, email } = req.body;
+
+  const userdata = {
+    username, email,
+  }
+
+  UserModel.findByIdAndUpdate(userId, userdata)
+  .then((update) => res.json(update))
+  .catch((err) => res.json(err))
+})
+
 // Middleware to verify token
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];

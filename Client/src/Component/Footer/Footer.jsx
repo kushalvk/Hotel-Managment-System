@@ -59,6 +59,14 @@ function Footer() {
                       Booking
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="myprofile"
+                      className="text-gray-600 hover:text-white"
+                    >
+                      My Profile
+                    </a>
+                  </li>
                   {userData.role === "user" ? (
                     <li>
                       <a

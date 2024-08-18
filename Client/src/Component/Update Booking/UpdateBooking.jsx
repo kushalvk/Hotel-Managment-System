@@ -4,18 +4,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function UpdateBooking() {
+
   const navigate = useNavigate();
 
-  // store in database
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
-  const [person, setPerson] = useState(1);
-  const [city, setCity] = useState();
-  const [checkin, setCheckin] = useState();
-  const [checkout, setCheckout] = useState();
-  const [typeroom, setTyperoom] = useState();
-  const [price, setPrice] = useState();
-  
     // get booking ID from localstorage
   const [updateid, setUpdateid] = useState()
   useEffect(() => {
@@ -25,8 +16,7 @@ function UpdateBooking() {
     }
   }, []);
   
-  // Fetch bookings by name
-  const [BookingDetails, setbookingDetails] = useState([]);
+  // Fetch bookings by id
   useEffect(() => {
     axios
       .get(
@@ -34,14 +24,29 @@ function UpdateBooking() {
           import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
         }/upbookings/${updateid}`
       )
-      .then((response) => {
-        // console.log(response.data);
-        setbookingDetails(response.data);
+      .then((res) => {
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setPhone(res.data.phone);
+        setPerson(res.data.person);
+        setCity(res.data.city);
+        setTyperoom(res.data.typeroom);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [updateid]);
+
+  // store in database
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [person, setPerson] = useState(1);
+  const [city, setCity] = useState("");
+  const [checkin, setCheckin] = useState();
+  const [checkout, setCheckout] = useState();
+  const [typeroom, setTyperoom] = useState("");
+  const [price, setPrice] = useState();
 
   // save data to database
   const handleSubmite = () => {
@@ -98,6 +103,28 @@ function UpdateBooking() {
     }
   }, [typeroom, person]);
 
+  const handleCheckoutChange = (e) => {
+    const selectedCheckoutDate = e.target.value;
+    if (new Date(selectedCheckoutDate) <= new Date(checkin)) {
+      alert("Check-Out Date cannot be earlier than or the same as Check-In Date.");
+      setCheckout(" ")
+    } else {
+      setCheckout(selectedCheckoutDate);
+    }
+  };
+
+  const handleCheckinChange = (e) => {
+    const selectedCheckinDate = e.target.value;
+    const currentDate = new Date().toISOString().split("T")[0];
+
+    if (selectedCheckinDate < currentDate) {
+      alert("Check-In Date cannot be earlier than today's date.");
+      setCheckin(" ")
+    } else {
+      setCheckin(selectedCheckinDate);
+    }
+  };
+
   return (
     <div className="All-background-img h-full w-screen bg-cover bg-center flex items-center justify-center">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-2xl">
@@ -110,7 +137,7 @@ function UpdateBooking() {
             <input
               type="text"
               name="name"
-              value={BookingDetails.name}
+              value={name}
               placeholder="Enter your Full name"
               className="w-full px-4 py-2 border rounded"
               required
@@ -122,6 +149,7 @@ function UpdateBooking() {
             <input
               type="phone"
               name="phone"
+              value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="Enter your Phone no."
               className="w-full px-4 py-2 border rounded"
@@ -132,6 +160,7 @@ function UpdateBooking() {
             <input
               type="email"
               name="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your Email"
               className="w-full px-4 py-2 border rounded"
@@ -142,6 +171,7 @@ function UpdateBooking() {
             <input
               type="number"
               name="person"
+              value={person}
               min={1}
               onChange={(e) => setPerson(e.target.value)}
               placeholder="Enter a Person"
@@ -156,6 +186,7 @@ function UpdateBooking() {
           <div className="mb-4">
             <label className="block text-gray-700">City</label>
             <select
+              value={city}
               onChange={(e) => setCity(e.target.value)}
               className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
               required
@@ -175,7 +206,8 @@ function UpdateBooking() {
             <input
               type="date"
               name="checkIn"
-              onChange={(e) => setCheckin(e.target.value)}
+              value={checkin}
+              onChange={handleCheckinChange}
               className="w-full px-4 py-2 border rounded"
               required
             />
@@ -185,7 +217,8 @@ function UpdateBooking() {
             <input
               type="date"
               name="checkOut"
-              onChange={(e) => setCheckout(e.target.value)}
+              value={checkout}
+              onChange={handleCheckoutChange}
               className="w-full px-4 py-2 border rounded"
               required
             />
@@ -194,6 +227,7 @@ function UpdateBooking() {
             <label className="block text-gray-700">Room Type</label>
             <select
               name="roomType"
+              value={typeroom}
               onChange={(e) => setTyperoom(e.target.value)}
               className="w-full px-4 py-2 border rounded"
               required

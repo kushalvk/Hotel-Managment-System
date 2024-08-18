@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LogoutBtn from "./LogoutBtn";
+import LogoutBtn from "./LogoutProfileBtn";
 
 function Header() {
   // navigate
@@ -75,12 +75,11 @@ function Header() {
                 </a>
               )}
             </>
-          ) : <a
-          href="aboutus"
-          className="mr-5 text-white hover:text-gray-400"
-        >
-          About as
-        </a>}
+          ) : (
+            <a href="aboutus" className="mr-5 text-white hover:text-gray-400">
+              About as
+            </a>
+          )}
         </nav>
 
         {userData ? (
