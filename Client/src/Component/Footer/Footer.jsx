@@ -151,7 +151,7 @@ function Footer() {
                   </li>
                   <li>
                     <a href="rating" className="text-gray-600 hover:text-white">
-                      Satrs
+                      Rating
                     </a>
                   </li>
                   <li>
