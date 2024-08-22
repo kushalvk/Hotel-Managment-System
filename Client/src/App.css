@@ -7,7 +7,7 @@
 
 /* CSS for rating */ 
 .rating > label {
-  margin-right: 24px;
+  margin-right: 50px;
 }
 
 .rating:not(:checked) > input {

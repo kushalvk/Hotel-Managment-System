@@ -22,6 +22,7 @@ import ContactUs from './Component/ContactAs/ContactAs.jsx'
 import AboutUs from './Component/AboutAs/AboutAs.jsx'
 import MyBooking from './Component/MyBooking/MyBooking.jsx'
 import UpdateBooking from './Component/Update Booking/UpdateBooking.jsx'
+import MyProfile from './Component/MyProfile/MyProfile.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
       <Route path='aboutus' element={<AboutUs />} />
       <Route path='mybooking' element={<MyBooking />} />
       <Route path='updatebooking' element={<UpdateBooking />} />
+      <Route path='myprofile' element={<MyProfile />} />
     </Route>
   )
 )
