@@ -74,7 +74,7 @@ function Rating() {
                         Add Your Rating
                       </h1>
                     </div>
-                    <div className="lg:w-1/2 md:w-2/3 mx-auto">
+                    <div className="lg:w-1/2 md:w-2/3 mx-auto ">
                       <div className="flex flex-wrap -m-2">
                         <div className="p-2 w-full">
                           <div className="relative">
