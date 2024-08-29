@@ -16,13 +16,13 @@ function Login() {
         console.log(result);
         if (result.data.user.username === username) {
           const { token, user } = result.data;
-        // Store the token in local storage
-        localStorage.setItem("token", token);
-        console.log("Logged in user:", user);
+          // Store the token in local storage
+          localStorage.setItem("token", token);
+          console.log("Logged in user:", user);
           navigate("/");
           location.reload()
         } else {
-            setError(result.data)
+          setError(result.data)
         }
       })
       .catch(err => setError(err.message))
@@ -72,6 +72,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
             <p className="text-black">I do not have a account? <Link to={'/signup'}>Sign up</Link> </p>
+            <p className="text-black"><Link to={'/forgetpwd'}>Forgot password?</Link> </p>
           </div>
           <div className="flex items-center justify-between">
             <button

@@ -77,4 +77,20 @@ router.get("/user", verifyToken, (req, res) => {
     .catch((err) => res.json(err));
 });
 
+// forget Password
+router.post("/forget", async (req, res) => {
+  const { email, password } = req.body;
+  const hash_password = await bcrypt.hash(password, 12);
+
+  UserModel.findOneAndUpdate(
+    { email: email },
+    { password: hash_password },
+    { new: true }
+  )
+    .then((res) => {
+      res.json(res);
+    })
+    .catch((err) => res.json(err));
+});
+
 module.exports = router;
