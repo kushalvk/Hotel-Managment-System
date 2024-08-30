@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,7 +61,7 @@ function UpdateBooking() {
         typeroom,
         price,
       })
-      .then((booked) => alert("Booing Updated"), navigate("/mybooking"), localStorage.removeItem("updateid"))
+      .then(() => alert("Booking Updated"), navigate("/mybooking"), localStorage.removeItem("updateid"))
       .catch((err) => console.log(err));
   };
 
