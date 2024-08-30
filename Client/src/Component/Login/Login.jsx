@@ -11,7 +11,7 @@ function Login() {
   const handleSubmite = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`.replace(/\/+$/, ''), { username, password })
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}login`, { username, password })
       .then((result) => {
         console.log(result);
         if (result.data.user.username === username) {
