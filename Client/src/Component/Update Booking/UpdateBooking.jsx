@@ -22,7 +22,7 @@ function UpdateBooking() {
       .get(
         `${
           import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-        }/upbookings/${updateid}`
+        }upbookings/${updateid}`
       )
       .then((res) => {
         setName(res.data.name);
