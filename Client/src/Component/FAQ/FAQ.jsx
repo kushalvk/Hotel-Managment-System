@@ -14,7 +14,7 @@ function FAQ() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addfaq`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addfaq`, {
         question,
         answer,
       })
@@ -25,7 +25,7 @@ function FAQ() {
   // Get all FAQs
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faqs`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}faqs`)
       .then((getdata) => setFaqs(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -33,7 +33,7 @@ function FAQ() {
   // Get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

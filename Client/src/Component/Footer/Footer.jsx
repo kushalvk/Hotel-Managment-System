@@ -7,7 +7,7 @@ function Footer() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

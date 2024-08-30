@@ -51,7 +51,7 @@ function UpdateBooking() {
   // save data to database
   const handleSubmite = () => {
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/updatebooking/${updateid}`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}updatebooking/${updateid}`, {
         email,
         phone,
         person,

@@ -34,7 +34,7 @@ function SignUp() {
   }
 
   const handleSubmiteDone = () => {
-    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`, {username, email, password, role})
+    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}signup`, {username, email, password, role})
         .then(result => {console.log(result)
         navigate('/login')
     })

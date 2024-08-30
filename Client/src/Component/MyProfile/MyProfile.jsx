@@ -5,7 +5,7 @@ function MyProfile() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -24,7 +24,7 @@ function MyProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/updateuser/${id}`, {
+    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}updateuser/${id}`, {
       username,
       email,
     })

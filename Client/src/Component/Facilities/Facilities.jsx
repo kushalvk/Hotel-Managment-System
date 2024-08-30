@@ -12,7 +12,7 @@ function Facilities() {
   //   fetch All facilities
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/facilities`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}facilities`)
       .then((getdata) => setFacilities(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -20,7 +20,7 @@ function Facilities() {
   //   add faciliti
   const handlesubmit = () => {
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addfacility`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addfacility`, {
         title,
         imageUrl,
         description,
@@ -32,7 +32,7 @@ function Facilities() {
 //   get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

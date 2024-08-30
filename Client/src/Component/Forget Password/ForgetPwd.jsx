@@ -23,7 +23,7 @@ const ForgetPassword = () => {
     e.preventDefault();
     if (password === cPassword) {
       axios
-        .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/forget`, {
+        .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}forget`, {
           email,
           password,
         })

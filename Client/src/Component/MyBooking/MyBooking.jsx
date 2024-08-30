@@ -7,7 +7,7 @@ function MyBooking() {
   const [userData, setUserData] = useState(String);
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -40,7 +40,7 @@ function MyBooking() {
   const deleteBooking = async (id) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/booking/${id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking/${id}`,
         {
           method: "DELETE",
         }
