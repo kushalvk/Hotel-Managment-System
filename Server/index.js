@@ -20,6 +20,7 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json()); // to canvat user input data in to json formate for store in database
 
 mongoose.connect(process.env.MONGODB_URI);
