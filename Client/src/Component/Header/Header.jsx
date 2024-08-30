@@ -12,6 +12,9 @@ function Header() {
   function signupbtn() {
     navigate("/signup");
   }
+  function facilitiesA() {
+    navigate("/facilities");
+  }
 
   // usedata -> for auth user
   const [userData, setUserData] = useState(null);
@@ -40,7 +43,7 @@ function Header() {
           <a href="/" className="mr-5 text-white hover:text-gray-400">
             Home
           </a>
-          <a href="/facilities" className="mr-5 text-white hover:text-gray-400">
+          <a onClick={facilitiesA} className="mr-5 text-white hover:text-gray-400">
             Facilities
           </a>
           <a href="contactas" className="mr-5 text-white hover:text-gray-400">
