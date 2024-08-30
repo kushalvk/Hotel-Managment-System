@@ -13,11 +13,11 @@ const ratingRouters = require("./routers/rating_router");
 
 const app = express();
 const corsOptions = {
-  origin: ['https://hotel-managment-system-client.vercel.app'], // Your frontend origin
-  methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth-Token', 'Origin'],
-  optionsSuccessStatus: 200
+  origin: ['https://hotel-managment-system-client.vercel.app'] // Your frontend origin
+  // methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
+  // credentials: true,
+  // allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth-Token', 'Origin'],
+  // optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 app.use(express.json()); // to canvat user input data in to json formate for store in database
