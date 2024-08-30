@@ -5,6 +5,10 @@
   background-position: center;
 }
 
+body {
+  font-family: century;
+}
+
 /* CSS for rating */ 
 .rating > label {
   margin-right: 50px;
