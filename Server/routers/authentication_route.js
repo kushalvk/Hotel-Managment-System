@@ -18,7 +18,7 @@ router.post("/signup", async (req, res) => {
 });
 
 // login
-router.post("login", (req, res) => {
+router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   UserModel.findOne({ username: username }) // to find particular user
