@@ -32,6 +32,10 @@ function Booking() {
         price,
       })
       .then(() => alert("To Confarm Your Booking Please do a payment...! Thank you "), navigate("/payment"))
+      .then(() => {
+        localStorage.setItem("price", price);
+        location.reload();
+      })
       .catch((err) => console.log(err));
   };
 
