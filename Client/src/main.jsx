@@ -24,6 +24,7 @@ import MyBooking from './Component/MyBooking/MyBooking.jsx'
 import UpdateBooking from './Component/Update Booking/UpdateBooking.jsx'
 import MyProfile from './Component/MyProfile/MyProfile.jsx'
 import ForgetPassword from './Component/Forget Password/ForgetPwd.jsx'
+import Payment from './Component/Payment/Payment.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,6 +50,7 @@ const router = createBrowserRouter(
       <Route path='updatebooking' element={<UpdateBooking />} />
       <Route path='myprofile' element={<MyProfile />} />
       <Route path='forgetpwd' element={<ForgetPassword />} />
+      <Route path='payment' element={<Payment />} />
     </Route>
   )
 )
