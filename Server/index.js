@@ -10,7 +10,7 @@ const articlesRouters = require("./routers/articles_route");
 const reviwRouters = require("./routers/review_route");
 const faqRouters = require("./routers/faq_route");
 const ratingRouters = require("./routers/rating_router");
-const paymentRouter = require("./routers/payment_route");
+const paymentRouter = require("./routers/payment_router");
 
 const app = express();
 const corsOptions = {
