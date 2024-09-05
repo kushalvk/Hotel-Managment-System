@@ -10,6 +10,7 @@ const articlesRouters = require("./routers/articles_route");
 const reviwRouters = require("./routers/review_route");
 const faqRouters = require("./routers/faq_route");
 const ratingRouters = require("./routers/rating_router");
+const paymentRouter = require("./routers/payment_route");
 
 const app = express();
 const corsOptions = {
@@ -31,6 +32,7 @@ app.use(articlesRouters);
 app.use(reviwRouters);
 app.use(faqRouters);
 app.use(ratingRouters);
+app.use(paymentRouter);
 
 app.get("/", (req, res) => {
   res.json(" Hello ");

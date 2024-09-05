@@ -31,7 +31,7 @@ function Booking() {
         typeroom,
         price,
       })
-      .then(() => alert("Booking Successful"), navigate("/"))
+      .then(() => alert("To Confarm Your Booking Please do a payment...! Thank you "), navigate("/payment"))
       .catch((err) => console.log(err));
   };
 
