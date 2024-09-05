@@ -12,4 +12,14 @@ router.post("/payment", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+// get All Payment
+router.get("/payments", async (req, res) => {
+  try {
+    const payments = await PaymentModel.find();
+    res.json(payments);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 module.exports = router;

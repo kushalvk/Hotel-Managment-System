@@ -93,4 +93,14 @@ router.post("/forget", async (req, res) => {
     .catch((err) => res.json(err));
 });
 
+// get All User
+router.get("/alluser", async (req, res) => {
+  try {
+    const Users = await UserModel.find();
+    res.json(Users);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 module.exports = router;
