@@ -146,9 +146,29 @@ Verifies the user role and displays relevant data for admin and regular users. A
 
 # Screenshots
 
+## Admin Side
 ### Sign Up Page
+![Screenshot of Admin Sign Up](./screenshorts/Admin%20Sign%20Up.png)
+
 ### Home Page
+![Screenshot of Admin Sign Up](./screenshorts/Admin%20Home.jpeg)
+
 ### Booking Page
+![Screenshot of Admin Sign Up](./screenshorts/Admin%20Booking.png)
+
+
+# User Side
+
+### Sign Up
+![Screenshot of Admin Sign Up](./screenshorts/Client%20Sign%20up.jpeg)
+
+### Home Page
+![Screenshot of Admin Sign Up](./screenshorts/Client%20Home.jpeg)
+
+### Booking Page
+![Screenshot of Admin Sign Up](./screenshorts/Client%20Booking.jpeg)
+
 ### Payment Page
+![Screenshot of Admin Sign Up](./screenshorts/User%20Payment.jpeg)
 
 # **Thank you** 
