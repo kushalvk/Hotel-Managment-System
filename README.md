@@ -18,12 +18,10 @@
 ### Frontend:
 - **React.js**: User-friendly interface for booking and payment.
 - **Axios**: For making API requests.
-- **React Router**: For seamless navigation across pages.
 
 ### Backend:
 - **Node.js**: Server-side environment.
 - **Express.js**: Backend framework for handling routes and business logic.
-- **Mock Payment Gateway**: Simulates real payment processing.
 
 ---
 
@@ -65,14 +63,14 @@ cd vk-hotel-management-system
 
 # Frontend Structure
 
-### Booking Page (` /src/components/Booking.js `)
+### Booking Page (` /src/components/Booking/Booking.jsx `)
 
 This page handles the booking process, including:
 - **City Selection**: Fetches available cities from an external API.
 - **Room Type & Pricing**: Automatically updates the price based on room type.
 - **Date Validation**: Ensures valid check-in and check-out dates.
 
-### Payment Page (` /src/components/Payment.js `)
+### Payment Page (` /src/components/Payment/Payment.jsx `)
 The Payment page allows users to enter payment details, such as:
 
 - **Cardholder Name**
