@@ -100,14 +100,22 @@ function Booking() {
 
   // Automatically set price based on room type
   useEffect(() => {
-    if (typeroom === "Hall-1 (300 capacity)") {
+    if(typeroom === "Single Bad (Non A/c)") {
+      setPrice(person * 70);
+    } else if(typeroom === "Single Bad (A/c)") {
+      setPrice(person * 110);
+    } else if(typeroom === "Double Bad (Non A/c)") {
+      setPrice(person * 140);
+    } else if(typeroom === "Double Bad (A/c)") {
+      setPrice(person * 200);
+    }  else if(typeroom === "Dining") {
+      setPrice(person * 90);
+    } else if (typeroom === "Hall-1 (300 capacity)") {
       setPrice(170000);
       setPerson(300);
     } else if (typeroom === "Hall-2 (700 capacity)") {
       setPrice(270000);
       setPerson(700);
-    } else {
-      setPrice(person * 70);
     }
   }, [typeroom, person]);
 
@@ -235,7 +243,7 @@ function Booking() {
             <div className="mb-4">
               <label className="block text-gray-700">Room Type</label>
               <select
-                value={typeroom}
+                value={typeroom || "Select a room type"}
                 name="roomType"
                 onChange={(e) => setTyperoom(e.target.value)}
                 className="w-full px-4 py-2 border rounded"
