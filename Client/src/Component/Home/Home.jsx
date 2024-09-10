@@ -107,7 +107,7 @@ function Home() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           >
-            <option value="" disabled>
+            <option value={city || "Select a city"} disabled>
               Select a city
             </option>
             {citys.map((city) => (
