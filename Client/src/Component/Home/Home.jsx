@@ -104,10 +104,10 @@ function Home() {
 
           <select
             className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
-            value={city}
+            value={city || "Select a city"}
             onChange={(e) => setCity(e.target.value)}
           >
-            <option value={city} disabled>
+            <option value="Select a city" disabled>
               Select a city
             </option>
             {citys.map((city) => (
