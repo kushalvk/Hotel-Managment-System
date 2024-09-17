@@ -25,6 +25,7 @@ import UpdateBooking from './Component/Update Booking/UpdateBooking.jsx'
 import MyProfile from './Component/MyProfile/MyProfile.jsx'
 import ForgetPassword from './Component/Forget Password/ForgetPwd.jsx'
 import Payment from './Component/Payment/Payment.jsx'
+import AllUser from './Component/AllUser/AllUser.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
