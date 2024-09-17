@@ -68,7 +68,7 @@ function Header() {
               </a>
               {userData.role === "admin" ?
                 <a
-                  href="/allusers"
+                  href="allusers"
                   className="mr-5 text-white hover:text-gray-400"
                 >
                   All Users
