@@ -76,7 +76,16 @@ function Footer() {
                         My Booking
                       </a>
                     </li>
-                  ) : null}
+                  ) :
+                    <li>
+                      <a
+                        href="allusers"
+                        className="text-gray-600 hover:text-white"
+                      >
+                        All Users
+                      </a>
+                    </li>
+                  }
                 </>
               ) : (
                 <>
