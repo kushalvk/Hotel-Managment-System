@@ -51,6 +51,7 @@ const router = createBrowserRouter(
       <Route path='myprofile' element={<MyProfile />} />
       <Route path='forgetpwd' element={<ForgetPassword />} />
       <Route path='payment' element={<Payment />} />
+      <Route path='allusers' element={<AllUser />} />
     </Route>
   )
 )

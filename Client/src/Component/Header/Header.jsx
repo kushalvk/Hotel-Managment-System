@@ -18,7 +18,7 @@ function Header() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -66,14 +66,21 @@ function Header() {
               >
                 Terms & Condition
               </a>
-              {userData.role === "admin" ? null : (
+              {userData.role === "admin" ?
                 <a
-                  href="mybooking"
+                  href="/allusers"
                   className="mr-5 text-white hover:text-gray-400"
                 >
-                  My Booking
+                  All Users
                 </a>
-              )}
+                : (
+                  <a
+                    href="mybooking"
+                    className="mr-5 text-white hover:text-gray-400"
+                  >
+                    My Booking
+                  </a>
+                )}
             </>
           ) : (
             <a href="aboutus" className="mr-5 text-white hover:text-gray-400">

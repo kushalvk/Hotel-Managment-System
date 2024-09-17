@@ -44,13 +44,14 @@ router.post("/updateuser/:id", (req, res) => {
   const { username, email } = req.body;
 
   const userdata = {
-    username, email,
-  }
+    username,
+    email,
+  };
 
   UserModel.findByIdAndUpdate(userId, userdata)
-  .then((update) => res.json(update))
-  .catch((err) => res.json(err))
-})
+    .then((update) => res.json(update))
+    .catch((err) => res.json(err));
+});
 
 // Middleware to verify token
 const verifyToken = (req, res, next) => {
@@ -82,11 +83,7 @@ router.post("/forget", async (req, res) => {
   const { email, password } = req.body;
   const hash_password = await bcrypt.hash(password, 12);
 
-  UserModel.findOneAndUpdate(
-    { email: email },
-    { password: hash_password },
-    { new: true }
-  )
+  UserModel.findOneAndUpdate(email, { password: hash_password })
     .then((res) => {
       res.json(res);
     })
@@ -98,6 +95,21 @@ router.get("/alluser", async (req, res) => {
   try {
     const Users = await UserModel.find();
     res.json(Users);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+// delete user
+router.delete("/deleteuser/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    console.log("Deleting booking ID:", userId);
+
+    // Find the booking by ID and delete it
+    const deletedUser = await UserModel.findByIdAndDelete(userId);
+
+    res.json(deletedUser);
   } catch (err) {
     res.json(err);
   }

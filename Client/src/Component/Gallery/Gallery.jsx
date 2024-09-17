@@ -40,7 +40,7 @@ function Gallery() {
 
   return (
     <>
-      <div className="All-background-img">
+      <div className="All-background-img pb-7">
         <h1 className="text-4xl font-bold text-center mb-10 text-white mx-9">
           Hotel Gallery
         </h1>

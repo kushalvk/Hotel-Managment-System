@@ -2,65 +2,23 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import DefaultHome from "./DefaultHome";
 
 function Home() {
   const [userData, setUserData] = useState(null);
-  // const [token, setToken] = useState("");
-  const [city, setCity] = useState("");
-  const navigate = useNavigate();
 
   // for auth user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         setUserData(res.data.user);
-        // setToken(res.data.token);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  // get city
-
-  const handleSearch = () => {
-    if (!userData) {
-      navigate("/login");
-    } else {
-      localStorage.setItem("City", city)
-      console.log("Searching for hotels in:", city);
-      navigate("/typeroom")
-    }
-  };
-
-  // load all city
-  const [citys, setCitys] = useState([]);
-
-  useEffect(() => {
-    const config = {
-      cUrl: 'https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities',
-      ckey: 'QWFqZnRBUGVpVVpFOGZhcHhCRko4cFdRdFFRakhVWkpmb0MwcjhGag==' // this key sent in email
-    };
-
-    async function loadCities() {
-      try {
-        const response = await fetch(config.cUrl, {
-          headers: {
-            "X-CSCAPI-KEY": config.ckey
-          }
-        });
-        const data = await response.json();
-        setCitys(data);
-      } catch (error) {
-        console.error('Error fetching cities:', error);
-      }
-    }
-
-    loadCities();
   }, []);
 
   // chnaging background image
@@ -90,39 +48,28 @@ function Home() {
         }}
       >
         <div className="bg-white bg-opacity-75 p-9 rounded-3xl shadow-lg max-w-lg text-center">
-          <h1 className="text-4xl font-bold mb-6 text-gray-900">
-            Welcome to Our Hotel,{" "}
-            {userData ? (
-              <h5>
-                {userData.role.toUpperCase()} {userData.username}
-              </h5>
-            ) : null}
-          </h1>
-          <p className="text-lg text-gray-700 mb-6">
-            Experience luxury and comfort with us.
-          </p>
-
-          <select
-            className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
-            value={city || "Select a city"}
-            onChange={(e) => setCity(e.target.value)}
-          >
-            <option value="Select a city" disabled>
-              Select a city
-            </option>
-            {citys.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
+          {userData ? (
+            <>
+              {userData.role === "admin" ? (
+                <>
+                  <h1 className="text-4xl font-bold mb-6 text-gray-900">
+                    Welcome back to Hotel,{" "}
+                    <h5>
+                      {userData.role.toUpperCase()} {userData.username}
+                    </h5>
+                  </h1>
+                  <p className="text-lg text-gray-700 mb-6">
+                    Your place for easy hotel management. Manage tasks, check
+                    bookings, and provide a great guest experience effortlessly!
+                  </p>
+                </>
+              ) : (
+                <DefaultHome />
+              )}
+            </>
+          ) : (
+            <DefaultHome />
+          )}
         </div>
       </div>
     </>

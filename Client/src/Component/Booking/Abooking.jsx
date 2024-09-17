@@ -7,7 +7,7 @@ function Abooking() {
   // Fetch all bookings
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}bookings`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/bookings`)
       .then((response) => {
         // console.log(response.data);
         setBookings(response.data);
@@ -21,7 +21,7 @@ function Abooking() {
   const deleteBooking = async (id) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking/${id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/booking/${id}`,
         {
           method: "DELETE",
         }
@@ -48,7 +48,10 @@ function Abooking() {
           </div>
         </div>
       ) : (
-        <div className="All-background-img text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
+        <div className="All-background-img pb-9 text-black min-h-screen w-screen bg-cover bg-center flex flex-col items-center justify-start">
+          <h1 className="text-4xl font-bold text-center mb-10 text-white mt-10">
+            Booking
+          </h1>
           <div className="bg-white bg-opacity-75 p-9 rounded-3xl shadow-lg max-w-3xl w-full text-center">
             {bookings.map((booking) => (
               <div

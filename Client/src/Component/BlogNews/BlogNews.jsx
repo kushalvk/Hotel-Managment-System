@@ -14,7 +14,7 @@ function BlogNews() {
   const handlesubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addarticle`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addarticle`, {
         title,
         date,
         summary,
@@ -26,7 +26,7 @@ function BlogNews() {
   //   get all articles
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}articles`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/articles`)
       .then((getdata) => setArticles(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -34,7 +34,7 @@ function BlogNews() {
   //   get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -49,7 +49,7 @@ function BlogNews() {
         <h1 className="text-4xl font-bold text-center mb-10 text-white m-9">
           Blog & News
         </h1>
-        <div className="text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
+        <div className="pb-7 text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
           <div className="max-w-5xl w-full bg-white bg-opacity-75 p-10 rounded-3xl shadow-lg">
             {articles.map((article, index) => (
               <div key={index} className="mb-8">

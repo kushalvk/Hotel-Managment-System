@@ -38,7 +38,7 @@ function Policies() {
         <h1 className="text-4xl font-bold text-center mb-10 text-white mx-9">
           Hotel Policies
         </h1>
-        <div className="All-background-img text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
+        <div className="pb-7 text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
           <div className="max-w-5xl w-full bg-white bg-opacity-75 p-10 rounded-3xl shadow-lg">
             {policies.map((policy, index) => (
               <div key={index} className="mb-8">

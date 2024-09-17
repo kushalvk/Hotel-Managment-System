@@ -14,7 +14,7 @@ function Rating() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addrating`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addrating`, {
         name,
         star,
       })
@@ -23,17 +23,17 @@ function Rating() {
   };
 
   // Get all ratings
-    useEffect(() => {
-      axios
-        .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}ratings`)
-        .then((getdata) => setRatings(getdata.data))
-        .catch((err) => console.log(err));
-    }, []);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/ratings`)
+      .then((getdata) => setRatings(getdata.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   // Get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -45,10 +45,10 @@ function Rating() {
   return (
     <>
       <div className="All-background-img">
-        <h1 className="text-4xl font-bold text-center mb-10 text-white m-9">
+        <h1 className="pt-4 text-4xl font-bold text-center mb-10 text-white m-9">
           Customer Ratings
         </h1>
-        <div className="text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
+        <div className="pb-7 text-black h-full w-screen bg-cover bg-center flex items-center justify-center">
           <div className="max-w-5xl w-full bg-white bg-opacity-75 p-10 rounded-3xl shadow-lg">
             {ratings.length > 0 ? (
               ratings.map((rating, index) => (
@@ -74,7 +74,7 @@ function Rating() {
                         Add Your Rating
                       </h1>
                     </div>
-                    <div className="lg:w-1/2 md:w-2/3 mx-auto ">
+                    <div className="lg:w-1/2 md:w-2/3 mx-auto">
                       <div className="flex flex-wrap -m-2">
                         <div className="p-2 w-full">
                           <div className="relative">
