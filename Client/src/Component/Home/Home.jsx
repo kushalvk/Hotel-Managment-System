@@ -54,9 +54,9 @@ function Home() {
                 <>
                   <h1 className="text-4xl font-bold mb-6 text-gray-900">
                     Welcome back to Hotel,{" "}
-                    <h5>
+                    <>
                       {userData.role.toUpperCase()} {userData.username}
-                    </h5>
+                    </>
                   </h1>
                   <p className="text-lg text-gray-700 mb-6">
                     Your place for easy hotel management. Manage tasks, check

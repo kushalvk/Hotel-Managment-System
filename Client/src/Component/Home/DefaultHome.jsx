@@ -60,9 +60,9 @@ function DefaultHome() {
       <h1 className="text-4xl font-bold mb-6 text-gray-900">
         Welcome to Our Hotel,{" "}
         {userData ? (
-          <h5>
+          <>
             {userData.role.toUpperCase()} {userData.username}
-          </h5>
+          </>
         ) : null}
       </h1>
       <p className="text-lg text-gray-700 mb-6">
