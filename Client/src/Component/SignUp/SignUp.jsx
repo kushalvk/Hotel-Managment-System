@@ -35,7 +35,7 @@ function SignUp() {
 
   const handleSubmiteDone = () => {
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}signup`, {
         username,
         email,
         password,

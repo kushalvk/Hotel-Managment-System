@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}login`, {
         username,
         password,
       })
