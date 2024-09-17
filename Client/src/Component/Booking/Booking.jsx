@@ -6,6 +6,11 @@ import Abooking from "./Abooking";
 function Booking() {
   const navigate = useNavigate();
 
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
+
   // store in database
   const [name, setName] = useState();
   const [phone, setPhone] = useState();

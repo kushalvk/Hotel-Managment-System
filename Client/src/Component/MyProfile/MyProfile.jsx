@@ -1,7 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function MyProfile() {
+
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
 
   useEffect(() => {
     axios
@@ -28,8 +36,8 @@ function MyProfile() {
       username,
       email,
     })
-    .then(() => alert("Profile updated successfully!"))
-    .catch((err) => console.log(err))
+      .then(() => alert("Profile updated successfully!"))
+      .catch((err) => console.log(err))
   };
 
   return (

@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AllUser() {
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate()
+
+    // without login it can't work on this
+    useEffect(() => {
+        !localStorage.getItem("token") ? navigate("/") : null
+    })
 
     // Fetch all Users
     useEffect(() => {

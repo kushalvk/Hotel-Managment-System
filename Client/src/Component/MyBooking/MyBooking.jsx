@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MyBooking() {
+  const navigation = useNavigate();
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigation("/") : null
+  })
+
   // get user for verify admin or user
   const [userData, setUserData] = useState(String);
   useEffect(() => {
@@ -57,7 +64,6 @@ function MyBooking() {
     }
   };
 
-  const navigation = useNavigate();
   const handleUpdate = (id) => {
     localStorage.setItem("updateid", id);
     navigation("/updatebooking");

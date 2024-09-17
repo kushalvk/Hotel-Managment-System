@@ -2,13 +2,20 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FAQ() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
   const [userData, setUserData] = useState(null);
   const [faqs, setFaqs] = useState([]);
+
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
 
   // Add FAQ
   const handleSubmit = (e) => {

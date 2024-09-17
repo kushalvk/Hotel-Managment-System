@@ -1,4 +1,15 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 function PrivacyPolicy() {
+
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
+
   const privacyPolicies = [
     {
       title: "Introduction",

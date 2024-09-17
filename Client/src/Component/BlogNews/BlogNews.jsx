@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function BlogNews() {
   const [title, setTitle] = useState();
@@ -9,6 +10,13 @@ function BlogNews() {
 
   const [articles, setArticles] = useState([]);
   const [userData, setUserData] = useState(null);
+
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
 
   //   add article
   const handlesubmit = (e) => {

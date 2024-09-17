@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Review() {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
-
   const [userData, setUserData] = useState(null);
-
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
 
   // Add review
   const handleSubmit = (e) => {

@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Rating() {
   const [name, setName] = useState("");
   const [star, setstar] = useState(0);
-
   const [userData, setUserData] = useState(null);
-
   const [ratings, setRatings] = useState([]);
+  const navigate = useNavigate()
+
+  // without login it can't work on this
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate("/") : null
+  })
 
   // Add rating
   const handleSubmit = (e) => {
