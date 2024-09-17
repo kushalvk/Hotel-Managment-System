@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 function SignUp() {
 
-    // redio button
+  // redio button
   const [role, setRole] = useState("user");
   console.log(role);
 
@@ -12,7 +12,7 @@ function SignUp() {
     setRole(role === "user" ? "admin" : "user");
   };
 
-    // signup
+  // signup
   const [username, setUsername] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -23,23 +23,45 @@ function SignUp() {
   const handleSubmite = (e) => {
     e.preventDefault()
     if (role === "admin") {
-        if (adminCode === "VKHOTEL") {
-            handleSubmiteDone()
-        } else {
-            setError("Invalid Admin Code");
-        }
-    } else {
+      if (adminCode === "VKHOTEL") {
         handleSubmiteDone()
+      } else {
+        setError("Invalid Admin Code");
+      }
+    } else {
+      handleSubmiteDone()
     }
   }
 
   const handleSubmiteDone = () => {
-    axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}signup`, {username, email, password, role})
-        .then(result => {console.log(result)
-        navigate('/login')
-    })
-    .catch(err => setError(err.message))
-  }
+    axios
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`, {
+        username,
+        email,
+        password,
+        role,
+      })
+      .then((result) => {
+        console.log(result);
+        if (result.status === 201) {
+          navigate("/login"); // Redirect to login on success
+        } else {
+          setError(result.data.error || "Unknown error occurred");
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          // The server responded with an error (e.g. 400, 500)
+          setError(err.response.data.error || "Signup failed");
+        } else if (err.request) {
+          // The request was made but no response was received
+          setError("No response from the server. Please try again later.");
+        } else {
+          // Something else happened in setting up the request
+          setError("Error: " + err.message);
+        }
+      });
+  };
 
   return (
     <div className="All-background-img h-screen flex items-center justify-center w-screen">

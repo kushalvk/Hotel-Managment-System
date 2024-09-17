@@ -7,34 +7,53 @@ const router = express.Router();
 
 // register
 router.post("/signup", async (req, res) => {
-  const { username, email, password, role } = req.body;
+  try {
+    const { username, email, password, role } = req.body;
 
-  // bycrpt password
-  const hash_password = await bcrypt.hash(password, 12); // 12 is the salt round
+    // Check if the user already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "User with this email already exists" }); // 400 for bad request
+    }
 
-  UserModel.create({ username, email, password: hash_password, role })
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
+    // Hash password
+    const hash_password = await bcrypt.hash(password, 12); // 12 is the salt round
+
+    // Create new user
+    const newUser = await UserModel.create({
+      username,
+      email,
+      password: hash_password,
+      role,
+    });
+    res.status(201).json(newUser); // 201 for resource created
+  } catch (err) {
+    res.status(500).json({ error: "Signup failed", details: err.message }); // 500 for server error
+  }
 });
 
 // login
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-  UserModel.findOne({ username: username }) // to find particular user
-    .then(async (user) => {
-      if (user) {
-        const isMatch = await bcrypt.compare(password, user.password); // await is compalsory, it,s return a promice
-        if (isMatch) {
-          const token = await user.generateAuthToken();
-          res.json({ user, token });
-        } else {
-          res.json("incorrect password");
-        }
-      } else {
-        res.json("no record existed");
-      }
-    });
+    const user = await UserModel.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" }); // Return 404 for user not found
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Incorrect password" }); // Return 401 for wrong password
+    }
+
+    const token = await user.generateAuthToken();
+    res.status(200).json({ user, token });
+  } catch (err) {
+    res.status(500).json({ error: "Login failed", details: err.message }); // 500 for server error
+  }
 });
 
 // update user

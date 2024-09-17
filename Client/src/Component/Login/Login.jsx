@@ -10,22 +10,37 @@ function Login() {
 
   const handleSubmite = (e) => {
     e.preventDefault();
+
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}login`, { username, password })
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`, {
+        username,
+        password,
+      })
       .then((result) => {
-        console.log(result);
-        if (result.data.user.username === username) {
+        if (result.status === 200) {
           const { token, user } = result.data;
           // Store the token in local storage
           localStorage.setItem("token", token);
           console.log("Logged in user:", user);
           navigate("/");
-          location.reload()
+          location.reload();
         } else {
-          setError(result.data)
+          // Handle other status codes that are not 200
+          setError(result.data.error || "Unknown error occurred");
         }
       })
-      .catch(err => setError(err.message))
+      .catch((err) => {
+        if (err.response) {
+          // The server responded with a status code other than 2xx
+          setError(err.response.data.error || "Login failed");
+        } else if (err.request) {
+          // The request was made but no response was received
+          setError("No response from the server. Please try again later.");
+        } else {
+          // Something happened in setting up the request that triggered an error
+          setError("Error: " + err.message);
+        }
+      });
   };
 
   return (
