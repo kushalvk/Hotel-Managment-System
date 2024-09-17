@@ -7,7 +7,7 @@ function Abooking() {
   // Fetch all bookings
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/bookings`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}bookings`)
       .then((response) => {
         // console.log(response.data);
         setBookings(response.data);
@@ -21,7 +21,7 @@ function Abooking() {
   const deleteBooking = async (id) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/booking/${id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking/${id}`,
         {
           method: "DELETE",
         }

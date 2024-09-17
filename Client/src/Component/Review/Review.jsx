@@ -14,7 +14,7 @@ function Review() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addreview`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addreview`, {
         name,
         review,
       })
@@ -25,7 +25,7 @@ function Review() {
   // Get all reviews
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/reviews`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}reviews`)
       .then((getdata) => setReviews(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -33,7 +33,7 @@ function Review() {
   //   get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -45,7 +45,7 @@ function Review() {
   // booking delete
   const deleteReview = async (id) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/review/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}review/${id}`, {
         method: "DELETE",
       });
 

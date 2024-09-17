@@ -20,7 +20,7 @@ function Booking() {
   // save data to database
   const handleSubmite = () => {
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/booking`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking`, {
         name,
         email,
         phone,
@@ -69,7 +69,7 @@ function Booking() {
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

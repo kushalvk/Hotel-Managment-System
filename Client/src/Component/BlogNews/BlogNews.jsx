@@ -14,7 +14,7 @@ function BlogNews() {
   const handlesubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addarticle`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addarticle`, {
         title,
         date,
         summary,
@@ -26,7 +26,7 @@ function BlogNews() {
   //   get all articles
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/articles`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}articles`)
       .then((getdata) => setArticles(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -34,7 +34,7 @@ function BlogNews() {
   //   get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

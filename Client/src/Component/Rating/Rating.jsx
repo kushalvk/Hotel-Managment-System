@@ -14,7 +14,7 @@ function Rating() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/addrating`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}addrating`, {
         name,
         star,
       })
@@ -25,7 +25,7 @@ function Rating() {
   // Get all ratings
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/ratings`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}ratings`)
       .then((getdata) => setRatings(getdata.data))
       .catch((err) => console.log(err));
   }, []);
@@ -33,7 +33,7 @@ function Rating() {
   // Get user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -8,7 +8,7 @@ function AllUser() {
     // Fetch all Users
     useEffect(() => {
         axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/alluser`)
+            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}alluser`)
             .then((response) => {
                 setUsers(response.data);
             })
@@ -22,7 +22,7 @@ function AllUser() {
         try {
             axios
                 .delete(
-                    `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/deleteuser/${id}`
+                    `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}deleteuser/${id}`
                 )
                 .then(
                     () => {
