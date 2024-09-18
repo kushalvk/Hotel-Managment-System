@@ -55,7 +55,7 @@ function Careers() {
       title: "Sous Chef",
       category: "FULL-TIME",
       imageUrl:
-        "https://d1lfx7anrns929.cloudfront.net/temp/JVW1qmtJHayakDTzwWXMYLF6oj1usZjRdWZT48Cz.jpg",
+        "https://res.cloudinary.com/hz3gmuqw6/image/upload/c_fill,q_auto,w_750/f_auto/what-is-a-sous-chef-phpiJ1Vph",
       description:
         "The Sous Chef will assist the Executive Chef in daily kitchen operations, including preparing and presenting meals, managing kitchen staff, and ensuring a high standard of food quality. Culinary experience and a passion for food are essential.",
     },
