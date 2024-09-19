@@ -51,8 +51,8 @@ function AllUser() {
                     Users
                 </h1>
                 <div className="bg-white bg-opacity-75 p-9 rounded-3xl shadow-lg max-w-3xl w-full text-center">
-                    <div className="my-5 p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200 justify-between items-center">
-                        <p>Currently, <span className="text-blue-500"> {users.length - 1} valued users</span> are enjoying the services of our Hotel.</p>
+                    <div className="my-5 p-6 bg-black rounded-lg shadow-md justify-between items-center">
+                        <p className="text-white">Currently, <span className="text-blue-500"> {users.length - 1} valued users</span> are enjoying the services of our Hotel.</p>
                     </div>
                     <div className="grid grid-cols-1 gap-6">
                         {users.map((user) => (
