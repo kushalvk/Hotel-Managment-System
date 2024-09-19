@@ -31,7 +31,7 @@ function MyBooking() {
     axios
       .get(
         `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-        }/mybookings/${userData}`
+        }mybookings/${userData}`
       )
       .then((response) => {
         // console.log(response.data);
