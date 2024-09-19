@@ -23,7 +23,7 @@ function SignUp() {
   const handleSubmite = (e) => {
     e.preventDefault()
     if (role === "admin") {
-      if (adminCode === "VKHOTEL") {
+      if (adminCode === "VKHOTELMS") {
         handleSubmiteDone()
       } else {
         setError("Invalid Admin Code");
