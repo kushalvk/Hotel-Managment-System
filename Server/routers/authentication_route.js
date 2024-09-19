@@ -102,7 +102,7 @@ router.post("/forget", async (req, res) => {
   const { email, password } = req.body;
   const hash_password = await bcrypt.hash(password, 12);
 
-  UserModel.findOneAndUpdate(email, { password: hash_password })
+  UserModel.findOneAndUpdate({ email }, { password: hash_password })
     .then((res) => {
       res.json(res);
     })
