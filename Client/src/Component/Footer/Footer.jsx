@@ -144,7 +144,7 @@ function Footer() {
             <nav className="list-none mb-10">
               <li>
                 <a href="facilities" className="text-gray-600 hover:text-white">
-                  Facility
+                  Facilities
                 </a>
               </li>
 
