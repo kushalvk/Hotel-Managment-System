@@ -36,7 +36,7 @@ function MyProfile() {
       username,
       email,
     })
-      .then(() => alert("Profile updated successfully!"),navigate("/"))
+      .then(() => alert("Profile updated successfully!"),navigate("/"),location.reload())
       .catch((err) => console.log(err))
   };
 
