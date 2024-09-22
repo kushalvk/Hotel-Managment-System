@@ -70,7 +70,7 @@ function DefaultHome() {
       </p>
 
       <select
-        className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
+        className="allcity mb-4 px-4 py-2 border rounded w-full text-black"
         value={city}
         onChange={(e) => setCity(e.target.value)}
       >
