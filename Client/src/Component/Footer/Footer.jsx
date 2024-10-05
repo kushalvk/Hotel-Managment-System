@@ -110,12 +110,12 @@ function Footer() {
             <nav className="list-none mb-10">
               <li>
                 <a href="aboutus" className="text-gray-600 hover:text-white">
-                  About as
+                  About us
                 </a>
               </li>
               <li>
                 <a href="contactas" className="text-gray-600 hover:text-white">
-                  Contact as
+                  Contact us
                 </a>
               </li>
               {userData ? (
