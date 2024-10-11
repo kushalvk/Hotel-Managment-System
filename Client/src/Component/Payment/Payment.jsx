@@ -62,7 +62,7 @@ function Payment() {
                 name="name"
                 value={name}
                 placeholder="Enter Name"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 disabled
               />
@@ -75,7 +75,7 @@ function Payment() {
                 value={cardHolderName}
                 onChange={(e) => setCardHolderName(e.target.value)}
                 placeholder="Enter Cardholder Name"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
               />
             </div>
@@ -88,7 +88,7 @@ function Payment() {
                 maxLength={16}
                 onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="Enter Card Number"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 pattern="^\d{16}$"
               />
@@ -100,7 +100,7 @@ function Payment() {
                 name="expiryDate"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
               />
             </div>
@@ -113,7 +113,7 @@ function Payment() {
                 maxLength={3}
                 onChange={(e) => setCvv(e.target.value)}
                 placeholder="Enter CVV"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 pattern="^\d{3}$"
               />

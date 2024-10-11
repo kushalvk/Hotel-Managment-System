@@ -113,7 +113,7 @@ function SignUp() {
                 Admin Code
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
                 id="admin-code"
                 name="adminCode"
                 type="text"
@@ -126,7 +126,7 @@ function SignUp() {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-white bg-black text-sm font-bold mb-2"
               htmlFor="username"
             >
               Username
@@ -149,7 +149,7 @@ function SignUp() {
               Email
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               name="email"
               type="email"
@@ -166,7 +166,7 @@ function SignUp() {
               Password
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-white bg-black mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               name="password"
               type="password"

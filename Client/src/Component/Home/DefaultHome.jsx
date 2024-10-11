@@ -74,7 +74,7 @@ function DefaultHome() {
         value={city}
         onChange={(e) => setCity(e.target.value)}
       >
-        <option value="" disabled>
+        <option value="" disabled className="text-white bg-black" >
           Select a city
         </option>
         {citys.map((city) => (
