@@ -70,11 +70,11 @@ function DefaultHome() {
       </p>
 
       <select
-        className="allcity mb-4 px-4 py-2 border rounded w-full text-black"
+        className="allcity mb-4 px-4 py-2 border rounded w-full text-white bg-black"
         value={city}
         onChange={(e) => setCity(e.target.value)}
       >
-        <option value="" disabled className="text-white bg-black" >
+        <option value="" disabled >
           Select a city
         </option>
         {citys.map((city) => (
