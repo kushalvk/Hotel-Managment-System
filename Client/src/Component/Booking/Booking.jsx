@@ -212,7 +212,7 @@ function Booking() {
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
+                  className="allcity mb-4 px-4 py-2 border rounded w-full text-white bg-black"
                   required
                 >
                   <option value="" disabled>
