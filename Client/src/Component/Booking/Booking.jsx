@@ -175,7 +175,7 @@ function Booking() {
                 name="name"
                 value={name}
                 placeholder="Enter your Full name"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 disabled
               />
@@ -189,7 +189,7 @@ function Booking() {
                 pattern="^\d{10}$"
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter your Phone no."
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
               />
             </div>
@@ -201,7 +201,7 @@ function Booking() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
               />
             </div>
@@ -214,7 +214,7 @@ function Booking() {
                 min={1}
                 onChange={(e) => setPerson(e.target.value)}
                 placeholder="Enter a Person"
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 disabled={
                   typeroom === "Hall-1 (300 capacity)" ||
@@ -227,7 +227,7 @@ function Booking() {
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
+                className="text-white bg-black allcity mb-4 px-4 py-2 border rounded w-full"
                 required
               >
                 <option value="" disabled>
@@ -247,7 +247,7 @@ function Booking() {
                 name="checkIn"
                 value={checkin}
                 onChange={(e) => setCheckin(e.target.value)}
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 min={today}
               />
@@ -259,7 +259,7 @@ function Booking() {
                 name="checkOut"
                 value={checkout}
                 onChange={(e) => setCheckout(e.target.value)}
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
                 min={checkin || today}
               />
@@ -270,7 +270,7 @@ function Booking() {
                 value={typeroom || "Select a room type"}
                 name="roomType"
                 onChange={(e) => setTyperoom(e.target.value)}
-                className="w-full px-4 py-2 border rounded"
+                className="text-white bg-black w-full px-4 py-2 border rounded"
                 required
               >
                 <option value="Select a room type" disabled>
