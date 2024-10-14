@@ -16,7 +16,7 @@ function Payment() {
     e.preventDefault();
 
     axios
-      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}payment`, {
+      .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/payment`, {
         name,
         cardHolderName,
         cardNumber,
@@ -24,7 +24,7 @@ function Payment() {
         cvv,
         amount,
       })
-      .then(() => alert("Payment Successful"), localStorage.removeItem("price"))
+      .then(() => alert("Payment Successful"), localStorage.removeItem("price"), localStorage.removeItem("City"), localStorage.removeItem("RoomType"))
       .then(() => navigate("/"))
       .catch((err) => console.log(err));
   };
@@ -32,7 +32,7 @@ function Payment() {
   // get user for verify admin or user
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -40,12 +40,14 @@ function Payment() {
       .then((res) => {
         setName(res.data.user.username);
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch(() => navigate("/"));
+  });
 
   useEffect(() => {
     setAmount(localStorage.getItem("price"))
   }, [amount])
+
+  const today = new Date().toISOString().slice(0, 7);
 
   return (
     <>
@@ -62,7 +64,7 @@ function Payment() {
                 name="name"
                 value={name}
                 placeholder="Enter Name"
-                className="text-white bg-black w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-2 border rounded"
                 required
                 disabled
               />
@@ -75,7 +77,7 @@ function Payment() {
                 value={cardHolderName}
                 onChange={(e) => setCardHolderName(e.target.value)}
                 placeholder="Enter Cardholder Name"
-                className="text-white bg-black w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-2 border rounded"
                 required
               />
             </div>
@@ -88,7 +90,7 @@ function Payment() {
                 maxLength={16}
                 onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="Enter Card Number"
-                className="text-white bg-black w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-2 border rounded"
                 required
                 pattern="^\d{16}$"
               />
@@ -100,8 +102,9 @@ function Payment() {
                 name="expiryDate"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                className="text-white bg-black w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-2 border rounded"
                 required
+                min={today}
               />
             </div>
             <div className="mb-4">
@@ -113,14 +116,14 @@ function Payment() {
                 maxLength={3}
                 onChange={(e) => setCvv(e.target.value)}
                 placeholder="Enter CVV"
-                className="text-white bg-black w-full px-4 py-2 border rounded"
+                className="w-full px-4 py-2 border rounded"
                 required
                 pattern="^\d{3}$"
               />
             </div>
             <div className="mb-4">
               <h1 value={amount} className="text-red-500">
-                  $ {amount} / Per Day
+                  $ {amount} Total
                 </h1>
             </div>
             <button

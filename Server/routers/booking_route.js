@@ -102,4 +102,37 @@ router.delete("/booking/:id", async (req, res) => {
   }
 });
 
+// Search booking
+router.get("/bookings/search", async (req, res) => {
+  try {
+    const { searchQuery } = req.query;  // Use req.query to get search query
+
+    // Find the booking by name or partial match
+    const searchData = await BookingModel.find({
+      name: { $regex: searchQuery, $options: "i" },  // Case-insensitive search
+    });
+
+    res.json(searchData);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Delete Old booking from currant Date
+router.delete("/delete-old-bookings", async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const result = await BookingModel.deleteMany({ checkout: { $lt: currentDate } });
+    
+    if (result.deletedCount > 0) {
+      res.status(200).json({ message: `Deleted ${result.deletedCount} old bookings.` });
+    } else {
+      res.status(200).json({ message: "No old bookings found to delete." });
+    }
+  } catch (error) {
+    console.error("Error deleting old bookings:", error);
+    res.status(500).json({ error: "Failed to delete old bookings due to server error." });
+  }
+});
+
 module.exports = router;
