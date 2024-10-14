@@ -107,7 +107,7 @@ function Abooking() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search bookings by name or email"
+            placeholder="Search bookings by name"
             className="mb-5 p-3 rounded-lg shadow-md w-full max-w-md bg-black text-white"
           />
           {bookings.length === 0 ? (
