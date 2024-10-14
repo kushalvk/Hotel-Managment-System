@@ -7,7 +7,7 @@ function Abooking() {
   // Fetch all bookings
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/bookings`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}bookings`)
       .then((response) => {
         // console.log(response.data);
         setBookings(response.data);
@@ -21,7 +21,7 @@ function Abooking() {
   const deleteBooking = async (id) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/booking/${id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking/${id}`,
         {
           method: "DELETE",
         }
@@ -60,7 +60,7 @@ function Abooking() {
       // Fetch bookings by search query
       axios
         .get(
-          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/bookings/search`,
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}bookings/search`,
           {
             params: { searchQuery: debouncedSearchQuery },
           }
@@ -74,7 +74,7 @@ function Abooking() {
     } else {
       // Fetch all bookings when search query is empty
       axios
-        .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/bookings`)
+        .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}bookings`)
         .then((response) => {
           setBookings(response.data);
         })
@@ -89,7 +89,7 @@ function Abooking() {
     for (let i = 0; i < 1; i++) {
       axios
         .delete(
-          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/delete-old-bookings`
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}delete-old-bookings`
         )
         .then((res) => console.log(res.data.message))
         .catch((err) => console.error("Failed to delete old bookings:", err));
