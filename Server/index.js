@@ -14,7 +14,7 @@ const paymentRouter = require("./routers/payment_router");
 
 const app = express();
 const corsOptions = {
-  origin: ['https://solid-space-adventure-5gq5457g7jv7c7xxj-5173.app.github.dev'], // Your frontend origin
+  origin: ['https://hotel-managment-system-server.vercel.app/'], // Your frontend origin
   methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth-Token', 'Origin'],
