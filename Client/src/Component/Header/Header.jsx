@@ -60,12 +60,6 @@ function Header() {
               >
                 Manu
               </a>
-              <a
-                href="termscondition"
-                className="mr-5 text-white hover:text-gray-400"
-              >
-                Terms & Condition
-              </a>
               {userData.role === "admin" ?
                 <a
                   href="allusers"
