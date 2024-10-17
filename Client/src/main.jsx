@@ -26,6 +26,7 @@ import MyProfile from './Component/MyProfile/MyProfile.jsx'
 import ForgetPassword from './Component/Forget Password/ForgetPwd.jsx'
 import Payment from './Component/Payment/Payment.jsx'
 import AllUser from './Component/AllUser/AllUser.jsx'
+import Invoice from './Component/Invoice/Invoice.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
       <Route path='forgetpwd' element={<ForgetPassword />} />
       <Route path='payment' element={<Payment />} />
       <Route path='allusers' element={<AllUser />} />
+      <Route path='invoice' element={<Invoice />} />
     </Route>
   )
 )
