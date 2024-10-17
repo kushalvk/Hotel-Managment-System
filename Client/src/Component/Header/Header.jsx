@@ -55,10 +55,10 @@ function Header() {
                 Booking
               </a>
               <a
-                href="blognews"
+                href="manu"
                 className="mr-5 text-white hover:text-gray-400"
               >
-                Blog / News
+                Manu
               </a>
               <a
                 href="termscondition"
