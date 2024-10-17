@@ -14,7 +14,7 @@ const paymentRouter = require("./routers/payment_router");
 
 const app = express();
 const corsOptions = {
-  origin: ['https://hotel-managment-system-server.vercel.app/'], // Your frontend origin
+  origin: ['https://hotel-managment-system-server.vercel.app'], // Your frontend origin
   methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth-Token', 'Origin'],
