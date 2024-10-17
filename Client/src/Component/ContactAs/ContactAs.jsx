@@ -6,7 +6,7 @@ function ContactUs() {
     },
     {
       title: "Phone",
-      content: "+91 8460698315",
+      content: "+91 1234567890",
     },
     {
       title: "Email",
