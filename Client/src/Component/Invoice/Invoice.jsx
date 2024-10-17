@@ -78,7 +78,7 @@ function Invoice() {
   let totalAmount = 0; // Initialize totalAmount
   if (bookings) {
     totalAmount =
-      parseFloat(bookings.price) + 700 * (numberOfDays * bookings.person); // 700 id food charge
+      parseFloat(bookings.price) + 170 * (numberOfDays * bookings.person); // 700 id food charge
   }
 
   // rederect to the home
@@ -208,9 +208,9 @@ function Invoice() {
                 </tr>
                 <tr>
                   <td className="py-3 border-b text-gray-600">
-                    Food Charges (optional)
+                    Food Charges
                   </td>
-                  <td className="py-3 border-b text-gray-600">₹ 700</td>
+                  <td className="py-3 border-b text-gray-600">₹ 170</td>
                   <td className="py-3 border-b text-gray-600">
                     {bookings.person}
                   </td>
@@ -218,7 +218,7 @@ function Invoice() {
                     {numberOfDays}
                   </td>
                   <td className="py-3 border-b text-gray-600">
-                    ₹ {700 * (numberOfDays * bookings.person)}
+                    ₹ {170 * (numberOfDays * bookings.person)}
                   </td>
                 </tr>
               </tbody>
