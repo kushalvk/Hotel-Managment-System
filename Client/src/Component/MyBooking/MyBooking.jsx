@@ -69,6 +69,10 @@ function MyBooking() {
     navigation("/updatebooking");
   };
 
+  const handleinvoic = (id) => {
+    navigation(`/invoice?id=${id}`);
+  };
+
   return (
     <>
       <div className="All-background-img text-black min-h-screen w-screen bg-cover bg-center flex flex-col items-center justify-start">
@@ -103,12 +107,7 @@ function MyBooking() {
                       <b>Phone: </b>
                       {booking.phone}
                     </p>
-                    <button
-                      className="text-white bg-green-600 hover:bg-green-700 py-2 px-4 rounded mt-3"
-                      onClick={() => handleUpdate(booking._id)}
-                    >
-                      Update
-                    </button>
+
                   </div>
                   <div>
                     <p>
@@ -127,14 +126,28 @@ function MyBooking() {
                       <b>Check-out: </b>
                       {new Date(booking.checkout).toLocaleDateString()}
                     </p>
-
-                    <button
-                      className="text-white bg-red-600 hover:bg-red-700 py-2 px-4 rounded mt-3"
-                      onClick={() => deleteBooking(booking._id)}
-                    >
-                      Delete
-                    </button>
                   </div>
+                </div>
+                {/* Button Container with Flexbox */}
+                <div className="flex justify-center space-x-4 mt-4">
+                  <button
+                    className="text-white bg-red-600 hover:bg-red-700 py-2 px-4 rounded"
+                    onClick={() => deleteBooking(booking._id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="text-white bg-green-600 hover:bg-green-700 py-2 px-4 rounded"
+                    onClick={() => handleUpdate(booking._id)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="text-white bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded"
+                    onClick={() => handleinvoic(booking._id)}
+                  >
+                    Invoice
+                  </button>
                 </div>
               </div>
             ))
