@@ -1,4 +1,4 @@
-
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,20 @@ import { useNavigate } from "react-router-dom";
 function UpdateBooking() {
 
   const navigate = useNavigate();
-
-    // get booking ID from localstorage
   const [updateid, setUpdateid] = useState()
+  // store in data in state
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [person, setPerson] = useState(1);
+  const [city, setCity] = useState("");
+  const [checkin, setCheckin] = useState();
+  const [checkout, setCheckout] = useState();
+  const [typeroom, setTyperoom] = useState("");
+  const [price, setPrice] = useState();
+  const [citys, setCitys] = useState([]);
+
+  // get booking ID from localstorage
   useEffect(() => {
     if (localStorage.getItem("updateid")) {
       const uid = localStorage.getItem("updateid");
@@ -31,22 +42,14 @@ function UpdateBooking() {
         setPerson(res.data.person);
         setCity(res.data.city);
         setTyperoom(res.data.typeroom);
+        setPrice(res.data.price);
+        setCheckin(new Date(res.data.checkin).toISOString().split("T")[0]);
+        setCheckout(new Date(res.data.checkout).toISOString().split("T")[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [updateid]);
-
-  // store in database
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [person, setPerson] = useState(1);
-  const [city, setCity] = useState("");
-  const [checkin, setCheckin] = useState();
-  const [checkout, setCheckout] = useState();
-  const [typeroom, setTyperoom] = useState("");
-  const [price, setPrice] = useState();
 
   // save data to database
   const handleSubmite = () => {
@@ -59,14 +62,13 @@ function UpdateBooking() {
         checkin,
         checkout,
         typeroom,
-        price,
+        price: locatedPrice,
       })
-      .then(() => alert("Booking Updated"), navigate("/mybooking"), localStorage.removeItem("updateid"))
+      .then((booked) => alert("Booing Updated"), navigate("/mybooking"), localStorage.removeItem("updateid"))
       .catch((err) => console.log(err));
   };
 
   // get all city
-  const [citys, setCitys] = useState([]);
   useEffect(() => {
     const config = {
       cUrl: "https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities",
@@ -92,38 +94,58 @@ function UpdateBooking() {
 
   // Automatically set price based on room type
   useEffect(() => {
-    if (typeroom === "Hall-1 (300 capacity)") {
-      setPrice(170000);
-      setPerson(300);
-    } else if (typeroom === "Hall-2 (700 capacity)") {
-      setPrice(270000);
-      setPerson(700);
-    } else {
-      setPrice(person * 70);
+    switch (typeroom) {
+      case "Single Bad (Non A/c)":
+        setPrice(person * 70);
+        break;
+      case "Single Bad (A/c)":
+        setPrice(person * 110);
+        break;
+      case "Double Bad (Non A/c)":
+        setPrice(person * 140);
+        break;
+      case "Double Bad (A/c)":
+        setPrice(person * 200);
+        break;
+      case "Dining":
+        setPrice(person * 90);
+        break;
+      case "Hall-1 (300 capacity)":
+        setPrice(170000);
+        setPerson(300);
+        break;
+      case "Hall-2 (700 capacity)":
+        setPrice(270000);
+        setPerson(700);
+        break;
+      default:
+        break;
     }
   }, [typeroom, person]);
 
-  const handleCheckoutChange = (e) => {
-    const selectedCheckoutDate = e.target.value;
-    if (new Date(selectedCheckoutDate) <= new Date(checkin)) {
-      alert("Check-Out Date cannot be earlier than or the same as Check-In Date.");
-      setCheckout(" ")
-    } else {
-      setCheckout(selectedCheckoutDate);
-    }
-  };
+  // calculate diffrence between check-in and check-out & calculate total price
+  const [locatedPrice, setlocatedPrice] = useState();
 
-  const handleCheckinChange = (e) => {
-    const selectedCheckinDate = e.target.value;
-    const currentDate = new Date().toISOString().split("T")[0];
+  useEffect(() => {
+    if (checkin && checkout) {
+      const checkInDate = new Date(checkin);
+      const checkOutDate = new Date(checkout);
 
-    if (selectedCheckinDate < currentDate) {
-      alert("Check-In Date cannot be earlier than today's date.");
-      setCheckin(" ")
-    } else {
-      setCheckin(selectedCheckinDate);
+      // Calculate the difference in time
+      const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+
+      // Convert time difference to days
+      const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+      if (daysDifference > 1) {
+        setlocatedPrice(price * daysDifference);
+      } else {
+        setlocatedPrice(price * 1);
+      }
     }
-  };
+  }, [checkin, checkout, price]);
+
+  const today = new Date().toISOString().split("T")[0]; // Get today's date in 'YYYY-MM-DD' format
 
   return (
     <div className="All-background-img h-full w-screen bg-cover bg-center flex items-center justify-center">
@@ -139,7 +161,7 @@ function UpdateBooking() {
               name="name"
               value={name}
               placeholder="Enter your Full name"
-              className="w-full px-4 py-2 border rounded"
+              className="bg-black text-white w-full px-4 py-2 border rounded"
               required
               disabled
             />
@@ -152,7 +174,7 @@ function UpdateBooking() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="Enter your Phone no."
-              className="w-full px-4 py-2 border rounded"
+              className="bg-black text-white w-full px-4 py-2 border rounded"
             />
           </div>
           <div className="mb-4">
@@ -163,7 +185,7 @@ function UpdateBooking() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your Email"
-              className="w-full px-4 py-2 border rounded"
+              className="bg-black text-white w-full px-4 py-2 border rounded"
             />
           </div>
           <div className="mb-4">
@@ -175,7 +197,7 @@ function UpdateBooking() {
               min={1}
               onChange={(e) => setPerson(e.target.value)}
               placeholder="Enter a Person"
-              className="w-full px-4 py-2 border rounded"
+              className="bg-black text-white w-full px-4 py-2 border rounded"
               required
               disabled={
                 typeroom === "Hall-1 (300 capacity)" ||
@@ -188,7 +210,7 @@ function UpdateBooking() {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="allcity mb-4 px-4 py-2 border rounded w-full text-white"
+              className="bg-black text-white allcity mb-4 px-4 py-2 border rounded w-full"
               required
             >
               <option value="" disabled>
@@ -202,34 +224,36 @@ function UpdateBooking() {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Check-In Date</label>
-            <input
-              type="date"
-              name="checkIn"
-              value={checkin}
-              onChange={handleCheckinChange}
-              className="w-full px-4 py-2 border rounded"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Check-Out Date</label>
-            <input
-              type="date"
-              name="checkOut"
-              value={checkout}
-              onChange={handleCheckoutChange}
-              className="w-full px-4 py-2 border rounded"
-              required
-            />
-          </div>
+              <label className="block text-gray-700">Check-In Date</label>
+              <input
+                type="date"
+                name="checkIn"
+                value={checkin}
+                onChange={(e) => setCheckin(e.target.value)}
+                className="bg-black text-white w-full px-4 py-2 border rounded"
+                required
+                min={today}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Check-Out Date</label>
+              <input
+                type="date"
+                name="checkOut"
+                value={checkout}
+                onChange={(e) => setCheckout(e.target.value)}
+                className="bg-black text-white w-full px-4 py-2 border rounded"
+                required
+                min={checkin || today}
+              />
+            </div>
           <div className="mb-4">
             <label className="block text-gray-700">Room Type</label>
             <select
               name="roomType"
               value={typeroom}
               onChange={(e) => setTyperoom(e.target.value)}
-              className="w-full px-4 py-2 border rounded"
+              className="bg-black text-white w-full px-4 py-2 border rounded"
               required
             >
               <option value="" disabled>
@@ -250,8 +274,8 @@ function UpdateBooking() {
           </div>
           {person ? (
             <div>
-              <h1 value={price} className="text-red-500">
-                $ {price}
+              <h1 value={locatedPrice || price} className="text-red-500">
+                $ {locatedPrice || price}
               </h1>
               <p className="text-black">
                 Please read once{" "}
@@ -264,7 +288,7 @@ function UpdateBooking() {
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
           >
-            Book Now
+            Update Now
           </button>
         </form>
       </div>
