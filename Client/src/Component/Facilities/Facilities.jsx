@@ -5,7 +5,6 @@ function Facilities() {
   const [title, setTitle] = useState();
   const [imageUrl, setimageUrl] = useState();
   const [description, setDescription] = useState();
-
   const [facilities, setFacilities] = useState([]);
   const [userData, setUserData] = useState(null);
 
@@ -73,7 +72,7 @@ function Facilities() {
               ))}
               {userData === "admin" ? (
                 <form onSubmit={handlesubmit}>
-                  <section className="text-gray-600 body-font relative lg:mx-32 sm:mx-20">
+                  <section className="text-gray-600 body-font relative mx-32">
                     <div className="container px-5 py-10 mx-auto">
                       <div className="flex flex-col text-center w-full mb-12">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
