@@ -6,7 +6,7 @@ import Paragraph from "../../Atom/Paragraph.jsx";
 import Heading from "../../Atom/Heading.jsx";
 import {LoggedUser} from "../../../Services/AuthService.js";
 
-function AdminHome() {
+function Home() {
   const [userData, setUserData] = useState(null);
   const [bgImage, setBgImage] = useState("");
 
@@ -73,4 +73,4 @@ function AdminHome() {
   );
 }
 
-export default AdminHome;
+export default Home;
