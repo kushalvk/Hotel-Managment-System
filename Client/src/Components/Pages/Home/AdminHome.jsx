@@ -1,27 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import DefaultHome from "./DefaultHome.jsx";
 import Paragraph from "../../Atom/Paragraph.jsx";
 import Heading from "../../Atom/Heading.jsx";
+import {LoggedUser} from "../../../Services/AuthService.js";
 
-function Home() {
+function AdminHome() {
   const [userData, setUserData] = useState(null);
   const [bgImage, setBgImage] = useState("");
 
   // for auth user
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        setUserData(res.data.user);
-      })
-      .catch((err) => console.log(err));
+    const Logged = async () => {
+      try {
+        setUserData(await LoggedUser());
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+    Logged();
   }, []);
 
   // chnaging background image
@@ -75,4 +73,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default AdminHome;

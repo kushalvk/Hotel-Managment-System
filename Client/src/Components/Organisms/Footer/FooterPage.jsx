@@ -1,8 +1,8 @@
 import FooterLogo from "../../Molecules/Footer/FooterLogo.jsx";
 import FooterManus from "../../Molecules/Footer/FooterManus.jsx";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import FooterSocialLinks from "../../Molecules/Footer/FooterSocialLinks.jsx";
+import {LoggedUser} from "../../../Services/AuthService.js";
 
 function FooterPage() {
 
@@ -10,17 +10,14 @@ function FooterPage() {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUserData(res.data.user);
-                console.log(res.data.user);
-            })
-            .catch((err) => console.log(err));
+        const Logged = async () => {
+            try {
+                setUserData(await LoggedUser());
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        Logged();
     }, []);
 
     const sections = [

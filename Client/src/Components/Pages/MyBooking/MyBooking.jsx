@@ -1,68 +1,39 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Button from "../../Atom/Button.jsx";
 import ContainerBig from "../../Templates/ContainerBig.jsx";
 import Paragraph from "../../Atom/Paragraph.jsx";
+import {LoggedUser} from "../../../Services/AuthService.js";
+import {DeleteBooking, FetchBookingByName} from "../../../Services/BookingService.js";
 
 function MyBooking() {
 
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState(String);
     const [bookings, setBookings] = useState();
 
-    // without login it can't work on this
-    useEffect(() => {
-        !localStorage.getItem("token") ? navigation("/") : null
-    })
-
     // get user for verify admin or user
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUserData(res.data.user.username);
-            })
-            .catch((err) => console.log(err));
-    }, []);
-
-    // Fetch bookings by name
-    useEffect(() => {
-        axios
-            .get(
-                `${
-                    import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-                }/mybookings/${userData}`
-            )
-            .then((response) => {
-                // console.log(response.data);
-                setBookings(response.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [userData]);
+        if (!localStorage.getItem("token")) {
+            navigate("/");
+        } else {
+            const MyBookingAndLogged = async () => {
+                try {
+                    setUserData(await LoggedUser());
+                    setBookings(await FetchBookingByName(userData.username));
+                } catch (e) {
+                    console.log(e.message);
+                }
+            }
+            MyBookingAndLogged();
+        }
+    }, [navigate, userData.username]);
 
     // booking delete
     const deleteBooking = async (id) => {
         try {
-            const response = await fetch(
-                `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking/${id}`,
-                {
-                    method: "DELETE",
-                }
-            );
-            const result = await response.json();
-            if (result) {
-                alert("Booking Deleted");
-                setBookings((prevBookings) =>
-                    prevBookings.filter((booking) => booking._id !== id)
-                );
-            }
+            await DeleteBooking(id);
+            location.reload();
         } catch (error) {
             console.error("Error deleting booking:", error);
         }
@@ -70,11 +41,11 @@ function MyBooking() {
 
     const handleUpdate = (id) => {
         localStorage.setItem("updateid", id);
-        navigation("/updatebooking");
+        navigate("/updatebooking");
     };
 
     const handleinvoic = (id) => {
-        navigation(`/invoice?id=${id}`);
+        navigate(`/invoice?id=${id}`);
     };
 
     return (

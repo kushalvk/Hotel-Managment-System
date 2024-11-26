@@ -4,6 +4,8 @@ import {useNavigate} from "react-router-dom";
 import SelectCity from "../../Atom/SelectCity.jsx";
 import Button from "../../Atom/Button.jsx";
 import Paragraph from "../../Atom/Paragraph.jsx";
+import {ShowAllReview} from "../../../Services/ReviewService.js";
+import {LoggedUser} from "../../../Services/AuthService.js";
 
 function DefaultHome() {
     const [city, setCity] = useState("");
@@ -11,17 +13,14 @@ function DefaultHome() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUserData(res.data.user);
-                // setToken(res.data.token);
-            })
-            .catch((err) => console.log(err));
+        const Logged = async () => {
+            try {
+                setUserData(await LoggedUser());
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        Logged();
     }, []);
 
     const handleSearch = () => {

@@ -1,47 +1,46 @@
-import axios from "axios";
-import {useEffect, useState} from "react";
-import {Form, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, useNavigate } from "react-router-dom";
 import ContainerBig from "../../Templates/ContainerBig.jsx";
 import InputWithLabel from "../../Molecules/InputWithLabel.jsx";
 import Button from "../../Atom/Button.jsx";
+import { LoggedUser } from "../../../Services/AuthService.js";
+import { UpdateProfile } from "../../../Services/MyProfileService.js";
 
 function MyProfile() {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [id, setId] = useState("");
 
-    // without login it can't work on this
     useEffect(() => {
-        !localStorage.getItem("token") ? navigate("/") : null
-    })
+        if (!localStorage.getItem("token")) {
+            navigate("/");
+        } else {
+            const fetchUserData = async () => {
+                try {
+                    const user = await LoggedUser();
+                    setId(user._id);
+                    setUsername(user.username);
+                    setEmail(user.email);
+                } catch (e) {
+                    console.log(e.message);
+                }
+            };
+            fetchUserData();
+        }
+    }, [navigate]);
 
-    useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUsername(res.data.user.username);
-                setEmail(res.data.user.email);
-                setId(res.data.user._id);
-            })
-            .catch((err) => console.log(err));
-    }, []);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}updateuser/${id}`, {
-            username, email,
-        })
-            .then(() => alert("Profile updated successfully!"), navigate("/"), location.reload())
-            .catch((err) => console.log(err))
+        try {
+            await UpdateProfile(id, username, email);
+            location.reload();
+        } catch (e) {
+            console.log(e.message);
+        }
     };
 
-    return (<>
+    return (
         <ContainerBig title={"My Profile"}>
             <Form onSubmit={handleSubmit}>
                 <div className="mb-4 text-center">
@@ -53,16 +52,20 @@ function MyProfile() {
                         />
                     </div>
                 </div>
-                <InputWithLabel Name={'Name'} value={username} onChange={(e) => setUsername(e.target.value)}/>
-                <InputWithLabel Name={'Email'} value={email} onChange={(e) => setEmail(e.target.value)}/>
-                <Button
-                    type="submit"
-                >
-                    Update Profile
-                </Button>
+                <InputWithLabel
+                    Name={"Name"}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <InputWithLabel
+                    Name={"Email"}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <Button type="submit">Update Profile</Button>
             </Form>
         </ContainerBig>
-    </>);
+    );
 }
 
 export default MyProfile;

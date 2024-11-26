@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {Form, useNavigate} from "react-router-dom";
 import InputWithLabel from "../../Molecules/InputWithLabel.jsx";
@@ -8,6 +7,7 @@ import Label from "../../Atom/Label.jsx";
 import Paragraph from "../../Atom/Paragraph.jsx";
 import Button from "../../Atom/Button.jsx";
 import ContainerBig from "../../Templates/ContainerBig.jsx";
+import {FetchBooking, UpdateBooked} from "../../../Services/BookingService.js";
 
 function UpdateBooking() {
 
@@ -23,7 +23,6 @@ function UpdateBooking() {
     const [checkout, setCheckout] = useState();
     const [typeroom, setTyperoom] = useState("");
     const [price, setPrice] = useState();
-    const [citys, setCitys] = useState([]);
 
     // get booking ID from localstorage
     useEffect(() => {
@@ -34,69 +33,39 @@ function UpdateBooking() {
     }, []);
 
     // Fetch bookings by id
-    useEffect(() => {
-        axios
-            .get(
-                `${
-                    import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-                }/upbookings/${updateid}`
-            )
-            .then((res) => {
-                setName(res.data.name);
-                setEmail(res.data.email);
-                setPhone(res.data.phone);
-                setPerson(res.data.person);
-                setCity(res.data.city);
-                setTyperoom(res.data.typeroom);
-                setPrice(res.data.price);
-                setCheckin(new Date(res.data.checkin).toISOString().split("T")[0]);
-                setCheckout(new Date(res.data.checkout).toISOString().split("T")[0]);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+    useEffect( () => {
+        const fetchData = async () => {
+            try {
+                const response = await FetchBooking(updateid);
+
+                setName(response.name);
+                setEmail(response.email);
+                setPhone(response.phone);
+                setPerson(response.person);
+                setCity(response.city);
+                setTyperoom(response.typeroom);
+                setPrice(response.price);
+                setCheckin(new Date(response.checkin).toISOString().split("T")[0]);
+                setCheckout(new Date(response.checkout).toISOString().split("T")[0]);
+            } catch (err) {
+                console.error("Error fetching booking:", err.message);
+            }
+        };
+
+        if (updateid) {
+            fetchData();
+        }
     }, [updateid]);
 
     // save data to database
-    const handleSubmite = () => {
-        axios
-            .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}updatebooking/${updateid}`, {
-                email,
-                phone,
-                person,
-                city,
-                checkin,
-                checkout,
-                typeroom,
-                price: locatedPrice,
-            })
-            .then((booked) => alert("Booing Updated"), navigate("/mybooking"), localStorage.removeItem("updateid"))
-            .catch((err) => console.log(err));
-    };
-
-    // get all city
-    useEffect(() => {
-        const config = {
-            cUrl: "https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities",
-            ckey: "QWFqZnRBUGVpVVpFOGZhcHhCRko4cFdRdFFRakhVWkpmb0MwcjhGag==", // this key sent in email
-        };
-
-        async function loadCities() {
-            try {
-                const response = await fetch(config.cUrl, {
-                    headers: {
-                        "X-CSCAPI-KEY": config.ckey,
-                    },
-                });
-                const data = await response.json();
-                setCitys(data);
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
+    const handleSubmite = async () => {
+        try {
+            await UpdateBooked(updateid,email,phone,person,city,checkin,checkout,typeroom,locatedPrice);
+            navigate('/mybooking');
+        } catch (err) {
+            console.error("Error fetching booking:", err.message);
         }
-
-        loadCities();
-    }, []);
+    };
 
     // Automatically set price based on room type
     useEffect(() => {
@@ -155,7 +124,7 @@ function UpdateBooking() {
 
     return (
         <ContainerBig title={'Booking'}>
-            <Form onSubmit={handleSubmite}>
+            <Form method={'POST'} onSubmit={handleSubmite}>
                 <InputWithLabel Name={'Name'} value={name} disabled/>
                 <InputWithLabel Name={'Phone'} value={phone} pattern="^\d{10}$" max={10}
                                 onChange={(e) => setPhone(e.target.value)}/>

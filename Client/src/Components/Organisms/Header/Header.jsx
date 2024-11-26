@@ -1,10 +1,10 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import LogoutBtn from "../../Molecules/Header/LogoutProfileBtn.jsx";
 import HeaderBtn from "../../Atom/Header/HeaderBtn.jsx";
 import HeaderManu from "../../Molecules/Header/HeaderManu.jsx";
 import Logo from "../../Atom/Logo.jsx";
+import {LoggedUser} from "../../../Services/AuthService.js";
 
 function HeaderPage() {
 
@@ -22,17 +22,14 @@ function HeaderPage() {
 
     // usedata -> for auth user
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUserData(res.data.user);
-                // console.log(res.data.user);
-            })
-            .catch((err) => console.log(err));
+        const Logged = async () => {
+            try {
+                setUserData(await LoggedUser());
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        Logged();
     }, []);
 
     return (

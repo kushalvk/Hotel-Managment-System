@@ -5,6 +5,8 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Atom/Button.jsx";
+import {ShowAllReview} from "../../../Services/ReviewService.js";
+import {ForgetPassword, LoggedUser} from "../../../Services/AuthService.js";
 
 function ForgatePwd() {
 
@@ -13,7 +15,7 @@ function ForgatePwd() {
     const [cPassword, setCPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [Error, setError] = useState("");
-    const navigation = useNavigate();
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -24,19 +26,16 @@ function ForgatePwd() {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (password === cPassword) {
-            axios
-                .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}forget`, {
-                    email,
-                    password,
-                })
-                .then(
-                    () => alert("Your Password Has Been Changed"),
-                    navigation("/login")
-                )
-                .catch((err) => setError(err));
+            try {
+                await ForgetPassword(email, password);
+                alert('Password Updated successfully.');
+                navigate("/login");
+            } catch (e) {
+                console.log(e.message);
+            }
         } else {
             setError("Password dose not match");
         }

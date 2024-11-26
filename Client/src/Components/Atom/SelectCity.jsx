@@ -2,32 +2,24 @@
 
 import {useEffect, useState} from "react";
 import Label from "./Label.jsx";
+import {FetchBooking} from "../../Services/BookingService.js";
+import {GetAllCity} from "../../Services/LoadCitys.js";
 
 function SelectCity({city, setCity, label}) {
 
     const [citys, setCitys] = useState([]);
 
     useEffect(() => {
-        const config = {
-            cUrl: "https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities",
-            ckey: "QWFqZnRBUGVpVVpFOGZhcHhCRko4cFdRdFFRakhVWkpmb0MwcjhGag==", // this key sent in email
-        };
 
-        async function loadCities() {
+        const fetchData = async () => {
             try {
-                const response = await fetch(config.cUrl, {
-                    headers: {
-                        "X-CSCAPI-KEY": config.ckey,
-                    },
-                });
-                const data = await response.json();
-                setCitys(data);
-            } catch (error) {
-                console.error("Error fetching cities:", error);
+                const response = await GetAllCity();
+                setCitys(response);
+            } catch (err) {
+                console.error("Error fetching booking:", err.message);
             }
-        }
-
-        loadCities();
+        };
+        fetchData();
     }, []);
 
     return (

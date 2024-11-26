@@ -7,6 +7,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Button from "../../Atom/Button.jsx";
 import {useState} from "react";
 import axios from "axios";
+import {login, signup} from "../../../Services/AuthService.js";
 
 function SignUp() {
 
@@ -32,31 +33,13 @@ function SignUp() {
         }
     };
 
-    const handleSubmiteDone = () => {
-        axios
-            .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}signup`, {
-                username,
-                email,
-                password,
-                role,
-            })
-            .then((result) => {
-                console.log(result);
-                if (result.status === 201) {
-                    navigate("/login");
-                } else {
-                    setError(result.data.error || "Unknown error occurred");
-                }
-            })
-            .catch((err) => {
-                if (err.response) {
-                    setError(err.response.data.error || "Signup failed");
-                } else if (err.request) {
-                    setError("No response from the server. Please try again later.");
-                } else {
-                    setError("Error: " + err.message);
-                }
-            });
+    const handleSubmiteDone = async () => {
+        try {
+            await signup(username,email,password,role);
+        } catch (e) {
+            setError(e.message);
+        }
+        navigate('/login')
     };
 
     return (

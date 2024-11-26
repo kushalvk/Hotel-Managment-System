@@ -2,10 +2,10 @@ import InputWithLabel from "../Molecules/InputWithLabel.jsx";
 import Paragraph from "../Atom/Paragraph.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import Button from "../Atom/Button.jsx";
-import axios from "axios";
 import {useState} from "react";
 import Heading from "../Atom/Heading.jsx";
 import ContainerSmall from "../Templates/ContainerSmall.jsx";
+import { login } from "../../Services/AuthService.js";
 
 function LoginPage() {
 
@@ -14,35 +14,17 @@ function LoginPage() {
     const [Error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmite = (e) => {
+    const handleSubmite = async (e) => {
         e.preventDefault();
-
-        axios
-            .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}login`, {
-                username,
-                password,
-            })
-            .then((result) => {
-                if (result.status === 200) {
-                    const {token, user} = result.data;
-                    localStorage.setItem("token", token);
-                    console.log("Logged in user:", user);
-                    navigate("/");
-                    location.reload();
-                } else {
-                    // Handle other status codes that are not 200
-                    setError(result.data.error || "Unknown error occurred");
-                }
-            })
-            .catch((err) => {
-                if (err.response) {
-                    setError(err.response.data.error || "Login failed");
-                } else if (err.request) {
-                    setError("No response from the server. Please try again later.");
-                } else {
-                    setError("Error: " + err.message);
-                }
-            });
+        try {
+            const { token, user } = await login(username, password);
+            localStorage.setItem("token", token);
+            console.log("Logged in user:", user);
+            navigate("/");
+            location.reload();
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
     return (

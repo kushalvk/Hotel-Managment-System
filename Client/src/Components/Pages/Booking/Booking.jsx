@@ -1,4 +1,3 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {Form, useNavigate} from "react-router-dom";
 import Abooking from "./Abooking.jsx";
@@ -8,6 +7,8 @@ import SelectCity from "../../Atom/SelectCity.jsx";
 import Label from "../../Atom/Label.jsx";
 import Paragraph from "../../Atom/Paragraph.jsx";
 import Button from "../../Atom/Button.jsx";
+import {InsertBooking} from "../../../Services/BookingService.js";
+import {LoggedUser} from "../../../Services/AuthService.js";
 
 function Booking() {
     const navigate = useNavigate();
@@ -23,7 +24,6 @@ function Booking() {
     const [typeroom, setTyperoom] = useState();
     const [price, setPrice] = useState();
     const [userData, setUserData] = useState([]);
-    const [citys, setCitys] = useState([]);
 
     // without login it can't work on this
     useEffect(() => {
@@ -31,68 +31,28 @@ function Booking() {
     });
 
     // save data to database
-    const handleSubmite = () => {
-        axios
-            .post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}booking`, {
-                name,
-                email,
-                phone,
-                person,
-                city,
-                checkin,
-                checkout,
-                typeroom,
-                price: locatedPrice,
-            })
-            .then(
-                () =>
-                    alert("To Confarm Your Booking Please do a payment...! Thank you "),
-                navigate("/payment")
-            )
-            .then(() => {
-                localStorage.setItem("price", locatedPrice);
-                location.reload();
-            })
-            .catch((err) => console.log(err));
-    };
-
-    // get all city
-    useEffect(() => {
-        const config = {
-            cUrl: "https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities",
-            ckey: "QWFqZnRBUGVpVVpFOGZhcHhCRko4cFdRdFFRakhVWkpmb0MwcjhGag==", // this key sent in email
-        };
-
-        async function loadCities() {
-            try {
-                const response = await fetch(config.cUrl, {
-                    headers: {
-                        "X-CSCAPI-KEY": config.ckey,
-                    },
-                });
-                const data = await response.json();
-                setCitys(data);
-            } catch (error) {
-                console.error("Error fetching cities:", error);
-            }
+    const handleSubmite = async (e) => {
+        e.preventDefault();
+        try {
+            await InsertBooking(name, email, phone, person, city, checkin, checkout, typeroom, locatedPrice);
+            alert("To Confarm Your Booking Please do a payment...! Thank you")
+            navigate("/payment")
+        } catch (e) {
+            console.log(e.message);
         }
-
-        loadCities();
-    }, []);
+    };
 
     // get user for verify admin or user
     useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}user`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            .then((res) => {
-                setUserData(res.data.user);
-                setName(res.data.user.username);
-            })
-            .catch((err) => console.log(err));
+        const allReviewAndLogged = async () => {
+            try {
+                setUserData(await LoggedUser());
+                setName((await LoggedUser()).username)
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+        allReviewAndLogged();
     }, []);
 
     // get city & roomType from localstorage
@@ -171,8 +131,10 @@ function Booking() {
             <ContainerBig title={'Booking'}>
                 <Form onSubmit={handleSubmite}>
                     <InputWithLabel Name={'Name'} value={name} disabled/>
-                    <InputWithLabel Name={'Phone'} value={phone} pattern="^\d{10}$" max={10} onChange={(e) => setPhone(e.target.value)} />
-                    <InputWithLabel Name={'Email'} value={email} type={'email'} onChange={(e) => setEmail(e.target.value)} />
+                    <InputWithLabel Name={'Phone'} value={phone} pattern="^\d{10}$" max={10}
+                                    onChange={(e) => setPhone(e.target.value)}/>
+                    <InputWithLabel Name={'Email'} value={email} type={'email'}
+                                    onChange={(e) => setEmail(e.target.value)}/>
                     <InputWithLabel Name={'Person'}
                                     type={'number'}
                                     value={person}
@@ -181,10 +143,12 @@ function Booking() {
                                         typeroom === "Hall-1 (300 capacity)" ||
                                         typeroom === "Hall-2 (700 capacity)"
                                     }
-                                    onChange={(e) => setPerson(e.target.value)} />
+                                    onChange={(e) => setPerson(e.target.value)}/>
                     <SelectCity city={city} setCity={setCity} label={'City'}/>
-                    <InputWithLabel Name={'Check In Date'} type={'date'} value={checkin} min={today} onChange={(e) => setCheckin(e.target.value)}/>
-                    <InputWithLabel Name={'Check Out Date'} type={'date'} value={checkout} min={checkin || today} onChange={(e) => setCheckout(e.target.value)}/>
+                    <InputWithLabel Name={'Check In Date'} type={'date'} value={checkin} min={today}
+                                    onChange={(e) => setCheckin(e.target.value)}/>
+                    <InputWithLabel Name={'Check Out Date'} type={'date'} value={checkout} min={checkin || today}
+                                    onChange={(e) => setCheckout(e.target.value)}/>
                     <div className="mb-4">
                         <Label Name={'Room Type'}/>
                         <select
