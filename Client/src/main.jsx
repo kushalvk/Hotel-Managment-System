@@ -5,7 +5,7 @@ import './index.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import Login from './Components/Pages/Login/Login.jsx'
 import SignUp from './Components/Pages/Sign Up/SignUp.jsx'
-import Home from './Components/Pages/Home/Hotel.jsx'
+import Home from './Components/Pages/Home/Home.jsx'
 import Booking from './Components/Pages/Booking/Booking.jsx';
 import Gallery from './Components/Pages/Gallery/Gallery.jsx'
 import Policies from './Components/Pages/Policies/Policies.jsx'
