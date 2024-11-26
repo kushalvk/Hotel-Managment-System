@@ -5,7 +5,7 @@ import './index.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import Login from './Components/Pages/Login/Login.jsx'
 import SignUp from './Components/Pages/Sign Up/SignUp.jsx'
-import Home from './Components/Pages/Home/Home.jsx'
+import DefaultHome from './Components/Pages/Home/DefaultHome.jsx'
 import Booking from './Components/Pages/Booking/Booking.jsx';
 import Gallery from './Components/Pages/Gallery/Gallery.jsx'
 import Policies from './Components/Pages/Policies/Policies.jsx'
@@ -32,7 +32,7 @@ import ManuPage from './Components/Pages/Manu/Manu.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
-      <Route path='/' element={<Home />} />
+      <Route path='/' element={<DefaultHome />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<SignUp />} />
       <Route path='booking' element={<Booking />} />
