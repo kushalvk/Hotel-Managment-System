@@ -1,7 +1,7 @@
 
 const config = {
     cUrl: "https://api.countrystatecity.in/v1/countries/IN/states/GJ/cities",
-    ckey: "QWFqZnRBUGVpVVpFOGZhcHhCRko4cFdRdFFRakhVWkpmb0MwcjhGag==", // this key sent in email
+    ckey: `${import.meta.env.VITE_REACT_APP_CITY_KEY}`, // this key sent in email
 };
 
 export const GetAllCity = async () => {
