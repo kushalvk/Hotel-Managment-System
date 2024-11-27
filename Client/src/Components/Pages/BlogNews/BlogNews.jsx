@@ -64,20 +64,18 @@ function BlogNews() {
                 ))}
                 {userData === "admin" ? (
                     <FormWhite onsubmit={handlesubmit} title={"Add Blog & News"}>
-                        <InputWithLabel Name={'Title'}
-                                        className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                        onChange={(e) => setTitle(e.target.value)}/>
-                        <div className="ml-4 w-1/2">
-                            <InputWithLabel Name={'Date'}
-                                            type={'date'}
-                                            className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            onChange={(e) => setDate(e.target.value)}/>
-                        </div>
-                        <TextareaWithLabel name={'Summary'} onChange={(e) => setSummary(e.target.value)}/>
-                        <div className="p-2 w-full">
-                            <Button type={'submit'}>Add</Button>
-                        </div>
-                    </FormWhite>
+                    <InputWithLabel Name={'Title'}
+                                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    onChange={(e) => setTitle(e.target.value)}/>
+                    <InputWithLabel Name={'Date'}
+                                    type={'date'}
+                                    className="ml-2 w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    onChange={(e) => setDate(e.target.value)}/>
+                    <TextareaWithLabel name={'Summary'} onChange={(e) => setSummary(e.target.value)}/>
+                    <div className="p-2 w-full">
+                        <Button type={'submit'}>Add</Button>
+                    </div>
+                </FormWhite>
                 ) : null}
             </ContainerBig>
         </>

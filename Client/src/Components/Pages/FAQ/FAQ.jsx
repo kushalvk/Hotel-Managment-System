@@ -68,18 +68,16 @@ function FAQ() {
 
                 {userData === "admin" ? (
                         <FormWhite onsubmit={handleSubmit} title={"Add Question"}>
-                            <InputWithLabel Name={'Question'}
-                                            className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            onChange={(e) => setQuestion(e.target.value)}/>
-                            <div className="ml-4 w-1/2">
-                                <InputWithLabel Name={'Answer'}
-                                                className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                                onChange={(e) => setAnswer(e.target.value)}/>
-                            </div>
-                            <div className="p-2 w-full">
-                                <Button type={'submit'}>Add</Button>
-                            </div>
-                        </FormWhite>
+                        <InputWithLabel Name={'Question'}
+                                        className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                        onChange={(e) => setQuestion(e.target.value)}/>
+                        <InputWithLabel Name={'Answer'}
+                                        className="ml-2 w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                        onChange={(e) => setAnswer(e.target.value)}/>
+                        <div className="p-2 w-full">
+                            <Button type={'submit'}>Add</Button>
+                        </div>
+                    </FormWhite>
                 ) : null}
             </ContainerBig>
         </>
