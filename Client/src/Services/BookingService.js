@@ -33,7 +33,7 @@ export const FetchBooking = async (id) => {
         const response = await axios.get(
             `${
                 import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-            }/upbookings/${id}`
+            }upbookings/${id}`
         );
         return response.data;
     } catch (err) {
@@ -46,7 +46,7 @@ export const FetchBookingByName = async (name) => {
         const response = await axios.get(
             `${
                 import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-            }/mybookings/${name}`
+            }mybookings/${name}`
         );
         return response.data;
     } catch (err) {
